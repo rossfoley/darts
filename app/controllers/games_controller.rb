@@ -1,11 +1,14 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :play, :edit, :update, :destroy]
 
   def index
     @games = Game.all.decorate
   end
 
   def show
+  end
+
+  def play
   end
 
   def new

@@ -1,18 +1,20 @@
 p#notice = notice
 
 p
-  strong Score:
-  = @game.score
-p
-  strong Winner:
-  = @game.winner_id
-p
-  strong Loser:
-  = @game.loser_id
-p
-  strong Finished:
-  = @game.finished
+  strong Teams:
+  br
+  - @game.teams.each do |team|
+    = link_to team.name, team
+    br
 
-= link_to 'Edit', edit_game_path(@game)
-'|
-= link_to 'Back', games_path
+- if @game.finished
+  p
+    strong Winner:
+    = link_to @game.winner_name, @game.winner
+  p
+    strong Loser:
+    = link_to @game.loser_name, @game.loser
+- else
+  = link_to 'Play', play_game_path(@game)
+  br
+  = link_to 'Edit', edit_game_path(@game)
