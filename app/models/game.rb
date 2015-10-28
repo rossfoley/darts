@@ -2,7 +2,11 @@ class Game < ActiveRecord::Base
   has_and_belongs_to_many :teams
 
   def winner
-    Team.find(winner_id)
+    if finished
+      Team.find(winner_id)
+    else
+      nil
+    end
   end
 
   def winner= team
@@ -10,7 +14,11 @@ class Game < ActiveRecord::Base
   end
 
   def loser
-    Team.find(loser_id)
+    if finished
+      Team.find(loser_id)
+    else
+      nil
+    end
   end
 
   def loser= team

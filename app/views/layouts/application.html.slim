@@ -1,0 +1,22 @@
+doctype html
+html
+head
+  title Darts
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+body
+  nav.navbar.navbar-default.app-header
+    .container-fluid
+      .navbar-header
+        = link_to 'Darts', '/', class: 'navbar-brand'
+        button.navbar-toggle data-toggle="collapse" data-target=".navbar-inverse-collapse"
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      .navbar-collapse.collapse.navbar-inverse-collapse
+        = render 'shared/header_menu'
+
+  .container-fluid
+    = render 'shared/flash_messages'
+    = yield
