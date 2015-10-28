@@ -1,2 +1,15 @@
 h1 Playing Game
 h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
+
+table.table
+  thead
+    th = @game.teams.first.name
+    th Cricket
+    th = @game.teams.last.name
+
+  tbody
+    - [20, 19, 18, 17, 16, 15, 'Bull'].each do |target|
+      tr
+        td
+        td = target
+        td
