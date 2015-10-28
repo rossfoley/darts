@@ -47,10 +47,12 @@ ActiveRecord::Schema.define(version: 20151028220909) do
     t.integer  "multiplier"
     t.integer  "team_id"
     t.integer  "player_id"
+    t.integer  "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "scores", ["game_id"], name: "index_scores_on_game_id"
   add_index "scores", ["player_id"], name: "index_scores_on_player_id"
   add_index "scores", ["team_id"], name: "index_scores_on_team_id"
 
