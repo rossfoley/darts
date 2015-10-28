@@ -4,6 +4,7 @@ table
   thead
     tr
       th Name
+      th Players
       th
       th
       th
@@ -12,6 +13,10 @@ table
     - @teams.each do |team|
       tr
         td = team.name
+        td
+          - team.players.each do |player|
+            = link_to player.name, player
+            br
         td = link_to 'Show', team
         td = link_to 'Edit', edit_team_path(team)
         td = link_to 'Destroy', team, data: {:confirm => 'Are you sure?'}, :method => :delete

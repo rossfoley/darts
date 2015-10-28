@@ -1,30 +1,22 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
-  # GET /teams
-  # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.all.decorate
   end
 
-  # GET /teams/1
-  # GET /teams/1.json
   def show
   end
 
-  # GET /teams/new
   def new
-    @team = Team.new
+    @team = Team.new.decorate
   end
 
-  # GET /teams/1/edit
   def edit
   end
 
-  # POST /teams
-  # POST /teams.json
   def create
-    @team = Team.new(team_params)
+    @team = Team.new(team_params).decorate
 
     respond_to do |format|
       if @team.save
@@ -37,8 +29,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /teams/1
-  # PATCH/PUT /teams/1.json
   def update
     respond_to do |format|
       if @team.update(team_params)
@@ -51,8 +41,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  # DELETE /teams/1
-  # DELETE /teams/1.json
   def destroy
     @team.destroy
     respond_to do |format|
@@ -62,13 +50,11 @@ class TeamsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_team
-      @team = Team.find(params[:id])
+      @team = Team.find(params[:id]).decorate
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, player_ids: [])
     end
 end

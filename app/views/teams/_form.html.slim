@@ -3,6 +3,7 @@
 
   .form-inputs
     = f.input :name
+    = f.association :players, label_method: :name, value_method: :id, include_blank: false
 
   .form-actions
     = f.button :submit

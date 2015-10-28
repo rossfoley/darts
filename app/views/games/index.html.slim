@@ -1,26 +1,20 @@
-h1 Listing games
+h1 All Games
 
-table
+table.table
   thead
     tr
-      th Score
+      th Start Date
       th Winner
       th Loser
       th Finished
-      th
-      th
-      th
 
   tbody
     - @games.each do |game|
       tr
-        td = game.score
-        td = game.winner_id
-        td = game.loser_id
-        td = game.finished
-        td = link_to 'Show', game
-        td = link_to 'Edit', edit_game_path(game)
-        td = link_to 'Destroy', game, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to game.start_date, game
+        td = link_to game.winner_name, game.winner
+        td = link_to game.loser_name, game.loser
+        td = link_to game.finished ? 'Yes' : 'No', game
 
 br
 

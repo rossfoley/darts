@@ -17,4 +17,7 @@ class GameDecorator < Draper::Decorator
     end
   end
 
+  def start_date
+    object.created_at.strftime("%b %-d, %Y")
+  end
 end

@@ -10,7 +10,7 @@ class Game < ActiveRecord::Base
   end
 
   def winner= team
-    winner_id = team.id
+    self.winner_id = team.id
   end
 
   def loser
@@ -22,6 +22,6 @@ class Game < ActiveRecord::Base
   end
 
   def loser= team
-    loser_id = team.id
+    self.loser_id = team.id
   end
 end

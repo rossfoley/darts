@@ -2,10 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :score
-    = f.input :winner_id
-    = f.input :loser_id
-    = f.input :finished
+    = f.association :teams, label_method: :name, value_method: :id, include_blank: false
 
   .form-actions
     = f.button :submit
