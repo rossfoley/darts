@@ -1,0 +1,11 @@
+= simple_form_for(@game) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :score
+    = f.input :winner_id
+    = f.input :loser_id
+    = f.input :finished
+
+  .form-actions
+    = f.button :submit

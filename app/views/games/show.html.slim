@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Score:
+  = @game.score
+p
+  strong Winner:
+  = @game.winner_id
+p
+  strong Loser:
+  = @game.loser_id
+p
+  strong Finished:
+  = @game.finished
+
+= link_to 'Edit', edit_game_path(@game)
+'|
+= link_to 'Back', games_path
