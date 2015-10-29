@@ -28,7 +28,7 @@ class GamesController < ApplicationController
       points: params[:points].to_i,
       multiplier: params[:multiplier].to_i
     )
-    redirect_to play_game_path(@game), notice: 'Scores saved'
+    redirect_to play_game_path(@game)
   end
 
   def new

@@ -1,0 +1,2 @@
+- [1, 2, 3].each do |i|
+  = link_to "#{i}x", submit_score_game_path(@game, points: target, multiplier: i, team: team), class: 'btn btn-primary'

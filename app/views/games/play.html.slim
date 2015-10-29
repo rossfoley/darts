@@ -1,40 +1,38 @@
-h1 Playing Game
-h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
+.middle
+  h1 Playing Game
+  h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
 
 table.table.table-bordered.table-hover
   colgroup.score-column
   colgroup.points-column
   colgroup.score-column
   thead
-    th Team #{@game.teams.first.name}
-    th Cricket
-    th Team #{@game.teams.last.name}
+    th
+      .left Team #{@game.teams.first.name}: #{@game.teams.first.players.map(&:name).join(', ')}
+    th
+      .middle Cricket
+    th
+      .right Team #{@game.teams.last.name}: #{@game.teams.last.players.map(&:name).join(', ')}
 
   tbody
     - Score.cricket_points.each do |target|
       tr
         td
           div.btn-group.score-buttons.left
-            = link_to '1x', submit_score_game_path(@game, points: target, multiplier: 1, team: 0), class: 'btn btn-primary'
-            = link_to '2x', submit_score_game_path(@game, points: target, multiplier: 2, team: 0), class: 'btn btn-primary'
-            = link_to '3x', submit_score_game_path(@game, points: target, multiplier: 3, team: 0), class: 'btn btn-primary'
+            == render 'score_buttons', target: target, team: 0
           div.score-ticks.right
             = points_to_symbol @scores[0][target][:total]
-        td = Score.points_name target
+        td.middle = Score.points_name target
         td
           div.score-ticks.left
             = points_to_symbol @scores[1][target][:total]
           div.btn-group.score-buttons.right
-            = link_to '1x', submit_score_game_path(@game, points: target, multiplier: 1, team: 1), class: 'btn btn-primary'
-            = link_to '2x', submit_score_game_path(@game, points: target, multiplier: 2, team: 1), class: 'btn btn-primary'
-            = link_to '3x', submit_score_game_path(@game, points: target, multiplier: 3, team: 1), class: 'btn btn-primary'
-    tr
+            == render 'score_buttons', target: target, team: 1
+    tr.score-row
       td
-        .right
-          = @totals[0]
-      td Total
+        .right = @totals[0]
+      td.middle Total
       td
-        .left
-          = @totals[1]
+        .left = @totals[1]
 
 /== render 'score_form', game: @game, score: Score.new
