@@ -10,7 +10,13 @@ class Game < ActiveRecord::Base
 
   def total_scores
     team_scores.map do |team|
-      team.values[:total].reduce(:+)
+      sum = 0
+      team.each do |points, info|
+        if info[:closed]
+          sum += points * (info[:total] - 3)
+        end
+      end
+      sum
     end
   end
 

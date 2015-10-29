@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :play, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :play, :submit_scores, :edit, :update, :destroy]
 
   def index
     @games = Game.all.decorate
@@ -9,6 +9,13 @@ class GamesController < ApplicationController
   end
 
   def play
+    @scores = @game.team_scores
+    @totals = @game.total_scores
+  end
+
+  def submit_scores
+    ScoreServices.new(@game).submit_scores(score_params)
+    redirect_to play_game_path(@game), notice: 'Scores saved'
   end
 
   def new
@@ -61,5 +68,9 @@ class GamesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
       params.require(:game).permit(:winner_id, :loser_id, :finished, team_ids: [])
+    end
+
+    def score_params
+      params.require(:score).permit(:player_id, :team_id, :points, :multiplier)
     end
 end
