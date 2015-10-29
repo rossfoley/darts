@@ -8,8 +8,8 @@ table.table
     th = @game.teams.last.name
 
   tbody
-    - [20, 19, 18, 17, 16, 15, 'Bull'].each do |target|
+    - Score.cricket_points.each do |target|
       tr
-        td
-        td = target
-        td
+        td = points_to_symbol @game.team_scores[0][target][:total]
+        td = Score.points_name target
+        td = points_to_symbol @game.team_scores[1][target][:total]

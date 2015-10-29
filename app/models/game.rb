@@ -1,7 +1,18 @@
 class Game < ActiveRecord::Base
   has_and_belongs_to_many :teams
+  has_many :scores
 
   validates :teams, length: {is: 2}
+
+  def team_scores
+    teams.includes(:scores).map {|team| team.total_scores(self) }
+  end
+
+  def total_scores
+    team_scores.map do |team|
+      team.values[:total].reduce(:+)
+    end
+  end
 
   def winner
     if finished
