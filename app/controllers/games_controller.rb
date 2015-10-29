@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :play, :submit_scores, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :play, :submit_scores, :submit_score, :edit, :update, :destroy]
 
   def index
     @games = Game.all.decorate
@@ -15,6 +15,19 @@ class GamesController < ApplicationController
 
   def submit_scores
     ScoreServices.new(@game).submit_scores(score_params)
+    redirect_to play_game_path(@game), notice: 'Scores saved'
+  end
+
+  def submit_score
+    team = @game.teams[params[:team].to_i]
+    player = team.players[0]
+    Score.create(
+      game: @game,
+      player: player,
+      team: team,
+      points: params[:points].to_i,
+      multiplier: params[:multiplier].to_i
+    )
     redirect_to play_game_path(@game), notice: 'Scores saved'
   end
 

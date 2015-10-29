@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       get 'play'
       post 'submit_scores'
+      get 'submit_score'
     end
   end
   root 'games#index'
