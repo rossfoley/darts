@@ -17,11 +17,11 @@ class GamesController < ApplicationController
     team = @game.teams[params[:team].to_i]
     player = team.players[0]
     Score.create(
-      game: @game,
-      player: player,
-      team: team,
-      points: params[:points].to_i,
-      multiplier: params[:multiplier].to_i
+        game: @game,
+        player: player,
+        team: team,
+        points: params[:points].to_i,
+        multiplier: params[:multiplier].to_i
     )
     redirect_to play_game_path(@game)
   end
@@ -29,6 +29,11 @@ class GamesController < ApplicationController
   def undo
     @game.scores.last.destroy
     redirect_to play_game_path(@game)
+  end
+
+  def finish
+    FinishGameService.new(@game).call
+    redirect_to game_path(@game)
   end
 
   def new
@@ -73,17 +78,17 @@ class GamesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_game
-      @game = Game.find(params[:id]).decorate
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_game
+    @game = Game.find(params[:id]).decorate
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def game_params
-      params.require(:game).permit(:winner_id, :loser_id, :finished, team_ids: [])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def game_params
+    params.require(:game).permit(:winner_id, :loser_id, :finished, team_ids: [])
+  end
 
-    def score_params
-      params.require(:score).permit(:player_id, :team_id, :points, :multiplier)
-    end
+  def score_params
+    params.require(:score).permit(:player_id, :team_id, :points, :multiplier)
+  end
 end

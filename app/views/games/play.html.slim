@@ -36,3 +36,5 @@ table.table.table-bordered.table-hover
         .left = @totals[1]
 
 = link_to 'Undo Score', undo_game_path(@game), class: 'btn btn-primary', method: 'delete'
+br
+= link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'

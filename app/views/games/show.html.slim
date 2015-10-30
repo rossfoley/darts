@@ -1,11 +1,7 @@
 p#notice = notice
 
-p
-  strong Teams:
-  br
-  - @game.teams.each do |team|
-    = link_to team.name, team
-    br
+h1 Game on #{@game.start_date}
+p #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
 
 - if @game.finished
   p

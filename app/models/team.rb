@@ -9,11 +9,21 @@ class Team < ActiveRecord::Base
       total = 0
       closed = false
       if groups[points]
-        total = groups[points].inject(0) {|sum, s| sum + s.multiplier}
+        total = groups[points].inject(0) { |sum, s| sum + s.multiplier }
         closed = total >= 3
       end
       [points, {total: total, closed: closed}]
     end
     Hash[score_totals]
+  end
+
+  def final_score game
+    sum = 0
+    total_scores(game).each do |points, info|
+      if info[:closed]
+        sum += points * (info[:total] - 3)
+      end
+    end
+    sum
   end
 end
