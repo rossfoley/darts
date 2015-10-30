@@ -10,7 +10,7 @@ class Team < ActiveRecord::Base
       closed = false
       if groups[points]
         total = groups[points].inject(0) {|sum, s| sum + s.multiplier}
-        closed = total > 3
+        closed = total >= 3
       end
       [points, {total: total, closed: closed}]
     end

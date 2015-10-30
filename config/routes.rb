@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :games do
     member do
       get 'play'
-      post 'submit_scores'
-      get 'submit_score'
+      post 'submit_score'
+      delete 'undo'
     end
   end
   root 'games#index'

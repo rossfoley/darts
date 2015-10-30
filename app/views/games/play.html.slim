@@ -16,14 +16,14 @@ table.table.table-bordered.table-hover
 
   tbody
     - Score.cricket_points.each do |target|
-      tr
-        td
+      tr class = both_closed(@scores, target)
+        td class = closed(@scores, target, 0)
           div.btn-group.score-buttons.left
             == render 'score_buttons', target: target, team: 0
           div.score-ticks.right
             = points_to_symbol @scores[0][target][:total]
         td.middle = Score.points_name target
-        td
+        td class = closed(@scores, target, 1)
           div.score-ticks.left
             = points_to_symbol @scores[1][target][:total]
           div.btn-group.score-buttons.right
@@ -35,4 +35,4 @@ table.table.table-bordered.table-hover
       td
         .left = @totals[1]
 
-/== render 'score_form', game: @game, score: Score.new
+= link_to 'Undo Score', undo_game_path(@game), class: 'btn btn-primary', method: 'delete'
