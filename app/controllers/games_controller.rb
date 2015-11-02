@@ -14,15 +14,7 @@ class GamesController < ApplicationController
   end
 
   def submit_score
-    team = @game.teams[params[:team].to_i]
-    player = team.players[0]
-    Score.create(
-        game: @game,
-        player: player,
-        team: team,
-        points: params[:points].to_i,
-        multiplier: params[:multiplier].to_i
-    )
+    ScoreService.new(@game, params).call
     redirect_to play_game_path(@game)
   end
 
