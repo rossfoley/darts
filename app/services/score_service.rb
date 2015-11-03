@@ -21,7 +21,7 @@ class ScoreService
       return if team_score[:closed]
       multiplier = [multiplier, 3 - team_score[:total]].min
     end
-    
+
     Score.create(
         game: @game,
         player: player,

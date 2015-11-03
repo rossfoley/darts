@@ -1,0 +1,34 @@
+table.table.table-bordered.table-hover
+  colgroup.score-column
+  colgroup.points-column
+  colgroup.score-column
+  thead
+    th
+      .left Team #{game.teams.first.name}: #{game.teams.first.players.map(&:name).join(', ')}
+    th
+      .middle Cricket
+    th
+      .right Team #{game.teams.last.name}: #{game.teams.last.players.map(&:name).join(', ')}
+
+  tbody
+    - Score.cricket_points.each do |target|
+      tr class = both_closed(scores, target)
+        td class = closed(scores, target, 0)
+          - if show_buttons
+            div.btn-group.score-buttons.left
+              == render 'score_buttons', target: target, team: 0
+          div.score-ticks.right
+            = points_to_symbol scores[0][target][:total]
+        td.middle = Score.points_name target
+        td class = closed(scores, target, 1)
+          div.score-ticks.left
+            = points_to_symbol scores[1][target][:total]
+          - if show_buttons
+            div.btn-group.score-buttons.right
+              == render 'score_buttons', target: target, team: 1
+    tr.score-row
+      td
+        .right = totals[0]
+      td.middle Total
+      td
+        .left = totals[1]

@@ -1,7 +1,7 @@
 p#notice = notice
 
 h1 Game on #{@game.start_date}
-p #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
+h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
 
 - if @game.finished
   p
@@ -10,6 +10,24 @@ p #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.
   p
     strong Loser:
     = link_to @game.loser_name, @game.loser
+  == render 'score_board', game: @game, scores: @scores, totals: @totals, show_buttons: false
+
+  h2 Statistics
+  h3 Overall
+  ul
+    li Singles: #{@stats[:singles]}
+    li Doubles: #{@stats[:doubles]}
+    li Triples: #{@stats[:triples]}
+  h3 Team #{@game.teams.first.name}
+  ul
+    li Singles: #{@stats[:teams][0][:singles]}
+    li Doubles: #{@stats[:teams][0][:doubles]}
+    li Triples: #{@stats[:teams][0][:triples]}
+  h3 Team #{@game.teams.last.name}
+  ul
+    li Singles: #{@stats[:teams][1][:singles]}
+    li Doubles: #{@stats[:teams][1][:doubles]}
+    li Triples: #{@stats[:teams][1][:triples]}
 - else
   = link_to 'Play', play_game_path(@game)
   br

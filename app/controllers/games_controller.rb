@@ -6,6 +6,9 @@ class GamesController < ApplicationController
   end
 
   def show
+    @scores = @game.team_scores
+    @totals = @game.total_scores
+    @stats = GameStatisticsService.new(@game).call
   end
 
   def play
