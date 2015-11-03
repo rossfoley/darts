@@ -1,6 +1,9 @@
-- [1, 2, 3].each do |i|
-  - unless target == 25 and i == 3
-    = link_to "#{i}x",
-              submit_score_game_path(@game, points: target, multiplier: i, team: team),
-              class: 'btn btn-primary',
-              method: 'post'
+- team.players.each do |player|
+  td.score-buttons
+    div.btn-group
+      - [1, 2, 3].each do |i|
+        - unless target == 25 and i == 3
+          = link_to "#{i}x",
+                    submit_score_game_path(@game, points: target, multiplier: i, team: team.id, player: player.id),
+                    class: 'btn btn-primary',
+                    method: 'post'

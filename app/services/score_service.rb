@@ -6,14 +6,14 @@ class ScoreService
 
   def call
     # Basic attributes
-    team = @game.teams[@params[:team].to_i]
-    player = team.players[0]
+    team = Team.find(@params[:team])
+    player = Player.find(@params[:player])
     points = @params[:points].to_i
     multiplier = @params[:multiplier].to_i
 
     # Current scores
     scores = @game.team_scores
-    team_score = scores.delete_at(@params[:team].to_i)[points]
+    team_score = scores.delete_at(@game.teams.index(team))[points]
     other_score = scores.delete_at(0)[points]
 
     # Limit the multiplier if the enemy team already closed this point
