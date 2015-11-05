@@ -1,22 +1,19 @@
 class Game < ActiveRecord::Base
   has_and_belongs_to_many :teams
   has_many :scores
+  serialize :final_scores, Array
 
   validates :teams, length: {is: 2}
 
   def team_scores
-    teams.includes(:scores).map {|team| team.total_scores(self) }
+    teams.includes(:scores).map { |team| team.total_scores(self) }
   end
 
-  def total_scores
-    team_scores.map do |team|
-      sum = 0
-      team.each do |points, info|
-        if info[:closed]
-          sum += points * (info[:total] - 3)
-        end
-      end
-      sum
+  def final_scores
+    if finished
+      super
+    else
+      teams.map { |team| team.final_score self }
     end
   end
 

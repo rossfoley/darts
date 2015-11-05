@@ -4,11 +4,10 @@ class FinishGameService
   end
 
   def call
-    @game.finished = true
     team1 = @game.teams.first
     team2 = @game.teams.last
-    score1 = team1.final_score @game
-    score2 = team2.final_score @game
+    score1, score2 = @game.final_scores
+    @game.final_scores = [score1, score2]
     if score1 > score2
       @game.winner = team1
       @game.loser = team2
@@ -16,6 +15,7 @@ class FinishGameService
       @game.winner = team2
       @game.loser = team1
     end
+    @game.finished = true
     @game.save
   end
 end

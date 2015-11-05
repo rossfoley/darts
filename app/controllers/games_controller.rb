@@ -7,13 +7,13 @@ class GamesController < ApplicationController
 
   def show
     @scores = @game.team_scores
-    @totals = @game.total_scores
+    @totals = @game.final_scores
     @stats = GameStatisticsService.new(@game).call
   end
 
   def play
     @scores = @game.team_scores
-    @totals = @game.total_scores
+    @totals = @game.final_scores
   end
 
   def submit_score
@@ -43,7 +43,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
+        format.html { redirect_to play_game_path(@game), notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else
         format.html { render :new }
