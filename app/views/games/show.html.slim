@@ -13,21 +13,13 @@ h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams
   == render 'score_board', game: @game, scores: @scores, totals: @totals, show_buttons: false
 
   h2 Statistics
-  h3 Overall
-  ul
-    li Singles: #{@stats[:singles]}
-    li Doubles: #{@stats[:doubles]}
-    li Triples: #{@stats[:triples]}
-  h3 Team #{@game.teams.first.name}
-  ul
-    li Singles: #{@stats[:teams][0][:singles]}
-    li Doubles: #{@stats[:teams][0][:doubles]}
-    li Triples: #{@stats[:teams][0][:triples]}
-  h3 Team #{@game.teams.last.name}
-  ul
-    li Singles: #{@stats[:teams][1][:singles]}
-    li Doubles: #{@stats[:teams][1][:doubles]}
-    li Triples: #{@stats[:teams][1][:triples]}
+  .chart-container
+    h3 Overall
+    div class = 'pie-chart' data-chart-series = @stats[:overall].to_json
+  - @game.teams.each_with_index do |team, index|
+    .chart-container
+      h3 Team #{team.name}
+      div class = 'pie-chart' data-chart-series = @stats[:teams][index].to_json
 - else
   = link_to 'Play', play_game_path(@game)
   br
