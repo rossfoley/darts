@@ -14,7 +14,6 @@ gem 'nested_form'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'slim-rails'
 gem 'simple_form'
-gem 'highcharts-rails'
 
 group :development, :test do
   gem 'byebug'
