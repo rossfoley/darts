@@ -1,11 +1,21 @@
 table.table.table-bordered.table-hover
+  - game.teams.first.players.each do |player|
+    colgroup.buttons-col
+  colgroup.team-score
+  colgroup.points-column
+  colgroup.team-score
+  - game.teams.last.players.each do |player|
+    colgroup.buttons-col
   thead
     - if show_buttons
       - game.teams.first.players.each do |player|
         th #{player.name}
-    th Team #{game.teams.first.name}
-    th Cricket
-    th Team #{game.teams.last.name}
+    th
+      .right Team #{game.teams.first.name}
+    th
+      .middle Cricket
+    th
+      .left Team #{game.teams.last.name}
     - if show_buttons
       - game.teams.last.players.each do |player|
         th #{player.name}
@@ -16,11 +26,12 @@ table.table.table-bordered.table-hover
         - if show_buttons
           == render 'score_buttons', target: target, team: game.teams.first
         td class = closed(scores, target, 0)
-          div.score-ticks
+          div.score-ticks.right
             = points_to_symbol scores[0][target][:total]
-        td = Score.points_name target
+        td
+          .middle = Score.points_name target
         td class = closed(scores, target, 1)
-          div.score-ticks
+          div.score-ticks.left
             = points_to_symbol scores[1][target][:total]
         - if show_buttons
           == render 'score_buttons', target: target, team: game.teams.last
@@ -28,9 +39,12 @@ table.table.table-bordered.table-hover
       - if show_buttons
         - game.teams.first.players.each do |player|
           td
-      td= totals[0]
-      td Total
-      td = totals[1]
+      td
+        .right = totals[0]
+      td
+        .middle Total
+      td
+        .left = totals[1]
       - if show_buttons
         - game.teams.last.players.each do |player|
           td

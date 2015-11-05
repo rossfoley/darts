@@ -1,5 +1,6 @@
 $ ->
   $('.pie-chart').each ->
+    category = if $(@).hasClass('points') then 'Points' else 'Multipliers'
     $(@).highcharts
       chart:
         plotBackgroundColor: null,
@@ -7,7 +8,7 @@ $ ->
         plotShadow: false,
         type: 'pie'
       title:
-        text: 'Distribution of Multipliers'
+        text: "Distribution of #{category}"
       tooltip:
         pointFormat: '{series.name}: <b>{point.y:.0f} ({point.percentage:.1f}%)</b>'
       plotOptions:

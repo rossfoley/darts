@@ -15,4 +15,13 @@ module Series
         }
     ]
   end
+
+  def points_series points
+    Score.cricket_points.map do |point|
+      {
+          name: Score.points_name(point),
+          y: points[point].try(:count) || 0
+      }
+    end
+  end
 end
