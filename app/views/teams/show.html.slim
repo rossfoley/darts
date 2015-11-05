@@ -1,8 +1,14 @@
 p#notice = notice
 
-p
-  strong Name:
-  = @team.name
+h1 = @team.name
+h2 Statistics
+.chart-container
+  h3 Overall
+  div class = 'pie-chart' data-chart-series = @stats[:overall].to_json
+- @team.players.each_with_index do |player, index|
+  .chart-container
+    h3 #{player.name}
+    div class = 'pie-chart' data-chart-series = @stats[:players][index].to_json
 
 = link_to 'Edit', edit_team_path(@team)
 '|
