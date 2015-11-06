@@ -1,11 +1,13 @@
 table.table.table-bordered.table-hover
-  - game.teams.first.players.each do |player|
-    colgroup.buttons-col
+  - if show_buttons
+    - game.teams.first.players.each do |player|
+      colgroup.buttons-col
   colgroup.team-score
   colgroup.points-column
   colgroup.team-score
-  - game.teams.last.players.each do |player|
-    colgroup.buttons-col
+  -if show_buttons
+    - game.teams.last.players.each do |player|
+      colgroup.buttons-col
   thead
     - if show_buttons
       - game.teams.first.players.each do |player|

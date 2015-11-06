@@ -25,3 +25,13 @@ $ ->
         colorByPoint: true,
         data: $(@).data('chart-series')
       ]
+
+  $('.line-chart').each ->
+    $(@).highcharts
+      title:
+        text: 'Past Performance'
+      series: [
+        name: 'Final Team Score',
+        colorByPoint: true,
+        data: $(@).data('chart-series')
+      ]
