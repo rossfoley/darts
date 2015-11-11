@@ -28,8 +28,12 @@ $ ->
 
   $('.line-chart').each ->
     $(@).highcharts
+      chart:
+        defaultSeriesType: 'line'
       title:
         text: 'Past Performance'
+      xAxis:
+        categories: $(@).data('chart-categories')
       series: [
         name: 'Final Team Score',
         colorByPoint: true,

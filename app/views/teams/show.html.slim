@@ -9,5 +9,8 @@ h2 Statistics
   .chart-container
     h3 #{player.name}
     div class = 'pie-chart' data-chart-series = @stats[:players][index].to_json
+.chart-container
+  h3 Scores in Past Games
+  div class = 'line-chart' data-chart-series = @stats[:history][:y].to_json data-chart-categories = @stats[:history][:x].to_json
 
 = link_to 'Edit', edit_team_path(@team)

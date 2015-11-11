@@ -10,6 +10,6 @@ h2 Statistics
   div class = 'pie-chart points' data-chart-series = @stats[:points].to_json
 .chart-container
   h3 Scores in Past Games
-  div class = 'line-chart' data-chart-series = @stats[:history].to_json
+  div class = 'line-chart' data-chart-series = @stats[:history][:y].to_json data-chart-categories = @stats[:history][:x].to_json
 
 = link_to 'Edit', edit_player_path(@player)
