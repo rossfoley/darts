@@ -1,21 +1,34 @@
 h1 All Games
 
+= link_to 'New Game', new_game_path, class: 'btn btn-primary'
+
 table.table
   thead
     tr
+      th
       th Start Date
+      th Teams
       th Winner
-      th Loser
-      th Finished
+      th Final Score
 
   tbody
     - @games.each do |game|
       tr
-        td = link_to game.start_date, game
-        td = link_to game.winner_name, game.winner
-        td = link_to game.loser_name, game.loser
-        td = link_to game.finished ? 'Yes' : 'No', game
-
-br
-
-= link_to 'New Game', new_game_path
+        - if game.finished
+          td = link_to 'View Results', game
+          td = game.start_date
+          td
+            - game.teams.each do |team|
+              = link_to team.name, team
+              br
+          td = link_to game.winner_name, game.winner
+          td = game.final_score
+        - else
+          td = link_to 'Play Game', play_game_path(game)
+          td = game.start_date
+          td
+            - game.teams.each do |team|
+              = link_to team.name, team
+              br
+          td
+          td

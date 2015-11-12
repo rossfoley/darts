@@ -20,4 +20,8 @@ class GameDecorator < Draper::Decorator
   def start_date
     object.created_at.strftime("%b %-d, %Y")
   end
+
+  def final_score
+    "#{object.final_scores[0]} - #{object.final_scores[1]}"
+  end
 end
