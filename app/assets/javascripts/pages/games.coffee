@@ -28,14 +28,17 @@ $ ->
 
   $('.line-chart').each ->
     $(@).highcharts
-      chart:
-        defaultSeriesType: 'line'
       title:
         text: 'Past Performance'
       xAxis:
         categories: $(@).data('chart-categories')
-      series: [
+        offset: 0
+      yAxis:
+        min: 0
+        max: 1.1 * Math.max.apply(null, $(@).data('chart-series'))
+      plotOptions:
+        connectNulls: true
+      series: [{
         name: 'Final Team Score',
-        colorByPoint: true,
         data: $(@).data('chart-series')
-      ]
+      }]
