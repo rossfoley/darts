@@ -27,15 +27,23 @@ $ ->
       ]
 
   $('.line-chart').each ->
+    categories = $(@).data('chart-categories').map (date) ->
+      moment(date, 'DD/MM/YY').format('MMM DD')
     $(@).highcharts
       title:
         text: 'Past Performance'
+      legend:
+        enabled: false
       xAxis:
-        categories: $(@).data('chart-categories')
+        categories: categories
         offset: 0
+        title:
+          text: 'Game Date'
       yAxis:
         min: 0
         max: 1.1 * Math.max.apply(null, $(@).data('chart-series'))
+        title:
+          text: 'Final Score'
       plotOptions:
         connectNulls: true
       series: [{
