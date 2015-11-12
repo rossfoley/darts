@@ -1,5 +1,7 @@
 h1 All Teams
 
+= link_to 'New Team', new_team_path, class: 'btn btn-primary'
+
 table.table
   thead
     tr
@@ -14,7 +16,3 @@ table.table
           - team.players.each do |player|
             = link_to player.name, player
             br
-
-br
-
-= link_to 'New Team', new_team_path
