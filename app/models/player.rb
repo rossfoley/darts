@@ -4,6 +4,6 @@ class Player < ActiveRecord::Base
   has_many :rounds
 
   def average_mpr
-    rounds.average(:marks).to_i || 0
+    rounds.average(:marks).round(2) || 0.0
   end
 end
