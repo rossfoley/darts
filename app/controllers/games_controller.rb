@@ -14,6 +14,7 @@ class GamesController < ApplicationController
   def play
     @scores = @game.team_scores
     @totals = @game.final_scores
+    @active_player = @game.rounds.last.player
   end
 
   def submit_score
@@ -31,6 +32,11 @@ class GamesController < ApplicationController
     redirect_to game_path(@game)
   end
 
+  def new_round
+    @game.rounds.create(player_id: params[:player], team_id: params[:team])
+    redirect_to play_game_path(@game)
+  end
+
   def new
     @game = Game.new.decorate
   end
@@ -43,6 +49,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
+        @game.rounds.create(player: @game.players.first, team: @game.teams.first)
         format.html { redirect_to play_game_path(@game), notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else

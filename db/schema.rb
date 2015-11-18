@@ -46,10 +46,9 @@ ActiveRecord::Schema.define(version: 20151118053730) do
     t.integer  "game_id"
     t.integer  "player_id"
     t.integer  "team_id"
-    t.boolean  "finished",   default: false
     t.integer  "marks",      default: 0
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "rounds", ["game_id"], name: "index_rounds_on_game_id"

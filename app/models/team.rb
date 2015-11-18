@@ -2,6 +2,7 @@ class Team < ActiveRecord::Base
   has_and_belongs_to_many :players
   has_and_belongs_to_many :games
   has_many :scores
+  has_many :rounds
 
   def total_scores game
     groups = scores.where(game: game).group_by(&:points)

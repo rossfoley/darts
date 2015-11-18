@@ -11,6 +11,11 @@ class ScoreService
     points = @params[:points].to_i
     multiplier = @params[:multiplier].to_i
 
+    # Round logic
+    round = @game.rounds.last
+    return unless round.player == player
+    round = @game.rounds.create(team: team, player: player) if round.scores.count >= 3
+
     # Current scores
     scores = @game.team_scores
     team_score = scores.delete_at(@game.teams.index(team))[points]
@@ -26,6 +31,7 @@ class ScoreService
         game: @game,
         player: player,
         team: team,
+        round: round,
         points: points,
         multiplier: multiplier
     )

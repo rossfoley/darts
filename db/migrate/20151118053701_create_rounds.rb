@@ -4,7 +4,6 @@ class CreateRounds < ActiveRecord::Migration
       t.references :game, index: true, foreign_key: true
       t.references :player, index: true, foreign_key: true
       t.references :team, index: true, foreign_key: true
-      t.boolean :finished, default: false
       t.integer :marks, default: 0
 
       t.timestamps null: false
