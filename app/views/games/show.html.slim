@@ -14,12 +14,7 @@ h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams
 
   h2 Statistics
   .chart-container
-    h3 Overall
-    div class = 'pie-chart' data-chart-series = @stats[:overall].to_json
-  - @game.teams.each_with_index do |team, index|
-    .chart-container
-      h3 Team #{team.name}
-      div class = 'pie-chart' data-chart-series = @stats[:teams][index].to_json
+    div class = 'column-chart' data-chart-series = @stats.to_json
 - else
   = link_to 'Play', play_game_path(@game)
   br
