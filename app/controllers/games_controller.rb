@@ -45,11 +45,11 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params).decorate
+    @game = Game.new(game_params)
 
     respond_to do |format|
       if @game.save
-        @game.rounds.create(player: @game.players.first, team: @game.teams.first)
+        @game.rounds.create(player: @game.teams.first.players.first, team: @game.teams.first)
         format.html { redirect_to play_game_path(@game), notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else

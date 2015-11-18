@@ -27,6 +27,11 @@ class ScoreService
       multiplier = [multiplier, 3 - team_score[:total]].min
     end
 
+    # Update Round
+    round.marks += multiplier
+    round.save
+
+    # Create score
     Score.create(
         game: @game,
         player: player,

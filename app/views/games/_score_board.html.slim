@@ -11,7 +11,12 @@ table.table.table-bordered.table-hover
   thead
     - if show_buttons
       - game.teams.first.players.each do |player|
-        th #{player.name}
+        - if player == @active_player
+          th #{player.name}
+        - else
+          th = link_to player.name,
+                       new_round_game_path(@game, player: player.id, team: game.teams.first.id),
+                       method: :post
     th
       .right Team #{game.teams.first.name}
     th
@@ -20,13 +25,18 @@ table.table.table-bordered.table-hover
       .left Team #{game.teams.last.name}
     - if show_buttons
       - game.teams.last.players.each do |player|
-        th #{player.name}
+        - if player == @active_player
+          th #{player.name}
+        - else
+          th = link_to player.name,
+                       new_round_game_path(@game, player: player.id, team: game.teams.last.id),
+                       method: :post
 
   tbody
     - Score.cricket_points.each do |target|
       tr class = both_closed(scores, target)
         - if show_buttons
-          == render 'score_buttons', target: target, team: game.teams.first
+          == render 'score_buttons', target: target, team: game.teams.first, active_player: @active_player
         td class = closed(scores, target, 0)
           div.score-ticks.right
             = points_to_symbol scores[0][target][:total]
@@ -36,7 +46,7 @@ table.table.table-bordered.table-hover
           div.score-ticks.left
             = points_to_symbol scores[1][target][:total]
         - if show_buttons
-          == render 'score_buttons', target: target, team: game.teams.last
+          == render 'score_buttons', target: target, team: game.teams.last, active_player: @active_player
     tr.score-row
       - if show_buttons
         - game.teams.first.players.each do |player|

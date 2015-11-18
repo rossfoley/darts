@@ -2,6 +2,7 @@ class Score < ActiveRecord::Base
   belongs_to :team
   belongs_to :player
   belongs_to :game
+  belongs_to :round
 
   def self.cricket_points
     [20, 19, 18, 17, 16, 15, 25]
