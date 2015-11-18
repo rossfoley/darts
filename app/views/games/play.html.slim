@@ -5,6 +5,8 @@
 .playing
   == render 'score_board', game: @game, scores: @scores, totals: @totals, show_buttons: true
 
-= link_to 'Undo Score', undo_game_path(@game), class: 'btn btn-primary', method: 'delete'
+= link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
+br
+= link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
 br
 = link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'

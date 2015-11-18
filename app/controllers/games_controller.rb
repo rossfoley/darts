@@ -22,8 +22,13 @@ class GamesController < ApplicationController
     redirect_to play_game_path(@game)
   end
 
-  def undo
+  def undo_score
     UndoScoreService.new(@game).call
+    redirect_to play_game_path(@game)
+  end
+
+  def undo_round
+    @game.rounds.last.destroy if @game.rounds.count > 1
     redirect_to play_game_path(@game)
   end
 

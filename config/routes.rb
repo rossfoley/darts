@@ -6,7 +6,8 @@ Rails.application.routes.draw do
       get 'play'
       post 'submit_score'
       post 'new_round'
-      delete 'undo'
+      delete 'undo_score'
+      delete 'undo_round'
       patch 'finish'
     end
   end
