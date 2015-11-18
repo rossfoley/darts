@@ -9,6 +9,7 @@ class GamesController < ApplicationController
     @scores = @game.team_scores
     @totals = @game.final_scores
     @stats = GameStatisticsService.new(@game).call
+    @empty_rounds = (@game.rounds.where(marks: 0).count * 100.0 / @game.rounds.count).round
   end
 
   def play

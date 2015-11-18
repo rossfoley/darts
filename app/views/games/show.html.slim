@@ -12,9 +12,12 @@ h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams
     = link_to @game.loser_name, @game.loser
   == render 'score_board', game: @game, scores: @scores, totals: @totals, show_buttons: false
 
-  h2 Statistics
   .chart-container
     div class = 'column-chart' data-chart-series = @stats.to_json
+  h2 Statistics
+  p
+    strong Empty Rounds (3 misses):
+    = " #{@empty_rounds}%"
 - else
   = link_to 'Play', play_game_path(@game)
   br
