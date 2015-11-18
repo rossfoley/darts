@@ -23,7 +23,7 @@ class GamesController < ApplicationController
   end
 
   def undo
-    @game.scores.last.destroy
+    UndoScoreService.new(@game).call
     redirect_to play_game_path(@game)
   end
 

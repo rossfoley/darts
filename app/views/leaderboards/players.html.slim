@@ -1,0 +1,13 @@
+h1 Player MPR Leaderboard
+
+table.table
+  thead
+    tr
+      th Name
+      th Average MPR
+
+  tbody
+    - @players.each do |player|
+      tr
+        td = link_to player.name, player
+        td = player.average_mpr

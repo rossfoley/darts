@@ -10,5 +10,10 @@ Rails.application.routes.draw do
       patch 'finish'
     end
   end
+
+  namespace :leaderboards do
+    get 'players'
+  end
+
   root 'games#index'
 end
