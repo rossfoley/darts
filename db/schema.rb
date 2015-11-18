@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105215146) do
+ActiveRecord::Schema.define(version: 20151118053730) do
 
   create_table "games", force: :cascade do |t|
-    t.integer  "score"
     t.integer  "winner_id"
     t.integer  "loser_id"
     t.boolean  "finished",     default: false
@@ -43,6 +42,20 @@ ActiveRecord::Schema.define(version: 20151105215146) do
 
   add_index "players_teams", ["player_id", "team_id"], name: "players_teams_index", unique: true
 
+  create_table "rounds", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "player_id"
+    t.integer  "team_id"
+    t.boolean  "finished",   default: false
+    t.integer  "marks",      default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "rounds", ["game_id"], name: "index_rounds_on_game_id"
+  add_index "rounds", ["player_id"], name: "index_rounds_on_player_id"
+  add_index "rounds", ["team_id"], name: "index_rounds_on_team_id"
+
   create_table "scores", force: :cascade do |t|
     t.integer  "points"
     t.integer  "multiplier"
@@ -51,10 +64,12 @@ ActiveRecord::Schema.define(version: 20151105215146) do
     t.integer  "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "round_id"
   end
 
   add_index "scores", ["game_id"], name: "index_scores_on_game_id"
   add_index "scores", ["player_id"], name: "index_scores_on_player_id"
+  add_index "scores", ["round_id"], name: "index_scores_on_round_id"
   add_index "scores", ["team_id"], name: "index_scores_on_team_id"
 
   create_table "teams", force: :cascade do |t|
