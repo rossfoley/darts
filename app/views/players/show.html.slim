@@ -1,7 +1,6 @@
 p#notice = notice
 
 h1 = @player.name
-h2 Statistics
 .chart-container
   h3 Multipliers
   div class = 'pie-chart' data-chart-series = @stats[:multipliers].to_json
@@ -11,5 +10,15 @@ h2 Statistics
 .chart-container
   h3 Scores in Past Games
   div class = 'line-chart' data-chart-series = @stats[:history][:y].to_json data-chart-categories = @stats[:history][:x].to_json
+h2 Statistics
+dl
+  dt Games Played:
+  dd = @player.games.count
+  dt Win Percent:
+  dd = "#{@player.win_percent}%"
+  dt Average MPR:
+  dd = @player.average_mpr
+  dt Highest MPR:
+  dd = @player.highest_mpr
 
 = link_to 'Edit', edit_player_path(@player)
