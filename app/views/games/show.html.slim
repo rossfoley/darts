@@ -15,9 +15,14 @@ h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams
   .chart-container
     div class = 'column-chart' data-chart-series = @stats.to_json
   h2 Statistics
-  p
-    strong Empty Rounds (3 misses):
-    = " #{@empty_rounds}%"
+  dl
+    dt Empty Rounds (3 misses):
+    dd = " #{@empty_rounds}%"
+  h2 Player MPRs:
+  dl
+    - @player_mprs.each do |name, mpr|
+      dt = name
+      dd = mpr
 - else
   = link_to 'Play', play_game_path(@game)
   br

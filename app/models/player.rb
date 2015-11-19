@@ -18,6 +18,6 @@ class Player < ActiveRecord::Base
 
   def win_percent
     return 0.0 if games.count == 0
-    games.where(winner_id: teams).count * 100.0 / games.count
+    (games.where(winner_id: teams).count * 100.0 / games.count).round(2)
   end
 end
