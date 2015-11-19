@@ -10,7 +10,7 @@ class TeamStatisticsService
         overall: multiplier_series(@team.scores.group_by &:multiplier),
         history: history,
         players: @team.players.map do |player|
-          multiplier_series(player.scores.where(team: @team).group_by(&:multiplier))
+          multiplier_series(player.scores.joins(round: :team).where('teams.id = ?', @team).group_by(&:multiplier))
         end
     }
   end

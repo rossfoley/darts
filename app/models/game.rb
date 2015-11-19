@@ -1,7 +1,8 @@
 class Game < ActiveRecord::Base
   has_and_belongs_to_many :teams
-  has_many :scores
   has_many :rounds, dependent: :destroy
+  has_many :scores, through: :rounds
+
   serialize :final_scores, Array
 
   validates :teams, length: {is: 2}

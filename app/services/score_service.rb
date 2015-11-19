@@ -29,16 +29,7 @@ class ScoreService
 
     # Update Round
     round.marks += multiplier
+    round.scores.create(points: points, multiplier: multiplier)
     round.save
-
-    # Create score
-    Score.create(
-        game: @game,
-        player: player,
-        team: team,
-        round: round,
-        points: points,
-        multiplier: multiplier
-    )
   end
 end

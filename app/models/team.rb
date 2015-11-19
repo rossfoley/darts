@@ -1,11 +1,15 @@
 class Team < ActiveRecord::Base
   has_and_belongs_to_many :players
   has_and_belongs_to_many :games
-  has_many :scores
   has_many :rounds
+  has_many :scores, through: :rounds
+
+  def game_scores game
+    scores.joins(round: :game).where('games.id = ?', game.id)
+  end
 
   def total_scores game
-    groups = scores.where(game: game).group_by(&:points)
+    groups = game_scores(game).group_by(&:points)
     score_totals = Score.cricket_points.map do |points|
       total = 0
       closed = false
