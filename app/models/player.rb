@@ -8,6 +8,10 @@ class Player < ActiveRecord::Base
     (rounds.average(:marks) || 0.0).round(2)
   end
 
+  def adjusted_average_mpr
+    (rounds.where('marks > 0').average(:marks) || 0.0).round(2)
+  end
+
   def highest_mpr
     max = games.map { |game| game.rounds.where(player: self).average(:marks) || 0.0 }.max
     (max || 0.0).round(2)

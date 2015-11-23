@@ -17,5 +17,7 @@ class FinishGameService
     end
     @game.finished = true
     @game.save
+
+    @game.current_round.destroy if @game.current_round.scores.count == 0
   end
 end

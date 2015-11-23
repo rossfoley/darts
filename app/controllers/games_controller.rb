@@ -30,7 +30,7 @@ class GamesController < ApplicationController
   end
 
   def undo_round
-    @game.rounds.last.destroy if @game.rounds.count > 1
+    @game.current_round.destroy if @game.rounds.count > 1
     redirect_to play_game_path(@game)
   end
 
