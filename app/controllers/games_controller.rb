@@ -16,7 +16,7 @@ class GamesController < ApplicationController
   def play
     @scores = @game.team_scores
     @totals = @game.final_scores
-    @active_player = @game.rounds.last.player
+    @active_player = @game.current_round.player
   end
 
   def submit_score
@@ -39,8 +39,8 @@ class GamesController < ApplicationController
     redirect_to game_path(@game)
   end
 
-  def new_round
-    @game.rounds.create(player_id: params[:player], team_id: params[:team])
+  def next_round
+    NextRoundService.new(@game).call
     redirect_to play_game_path(@game)
   end
 

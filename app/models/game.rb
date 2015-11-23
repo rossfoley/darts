@@ -19,6 +19,26 @@ class Game < ActiveRecord::Base
     end
   end
 
+  # Array of player IDs indicating play order
+  # Assumes that the teams have the same number of players
+  def player_order
+    team_size = teams.first.players.count
+    (0...team_size).flat_map do |index|
+      [teams.first.players[index].id, teams.last.players[index].id]
+    end
+  end
+
+  def next_player
+    current_order = player_order
+    current_player = current_round.player.id
+    index = current_order.index current_player
+    current_order[(index + 1) % current_order.size]
+  end
+
+  def current_round
+    rounds.last
+  end
+
   def winner
     if finished
       Team.find(winner_id)

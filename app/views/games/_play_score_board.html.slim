@@ -8,12 +8,7 @@ table.table.table-bordered.table-hover
     colgroup.buttons-col
   thead
     - game.teams.first.players.each do |player|
-      - if player == @active_player
-        th #{player.name}
-      - else
-        th = link_to player.name,
-                     new_round_game_path(@game, player: player.id, team: game.teams.first.id),
-                     method: :post
+      th #{player.name}
     th
       .right Team #{game.teams.first.name}
     th
@@ -21,12 +16,7 @@ table.table.table-bordered.table-hover
     th
       .left Team #{game.teams.last.name}
     - game.teams.last.players.each do |player|
-      - if player == @active_player
-        th #{player.name}
-      - else
-        th = link_to player.name,
-                     new_round_game_path(@game, player: player.id, team: game.teams.last.id),
-                     method: :post
+      th #{player.name}
 
   tbody
     - Score.cricket_points.each do |target|

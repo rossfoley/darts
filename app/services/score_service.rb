@@ -12,9 +12,8 @@ class ScoreService
     multiplier = @params[:multiplier].to_i
 
     # Round logic
-    round = @game.rounds.last
+    round = @game.current_round
     return unless round.player == player
-    round = @game.rounds.create(team: team, player: player) if round.scores.count >= 3
 
     # Current scores
     scores = @game.team_scores
@@ -31,5 +30,8 @@ class ScoreService
     round.marks += multiplier
     round.scores.create(points: points, multiplier: multiplier)
     round.save
+
+    # Automatically advance to next round
+    NextRoundService.new(@game).call if round.scores.count >= 3
   end
 end

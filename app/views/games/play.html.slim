@@ -1,6 +1,7 @@
 .middle
   h1 Playing Game
   h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
+  = link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post'
 
 .playing
   == render 'play_score_board', game: @game, scores: @scores, totals: @totals

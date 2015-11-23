@@ -10,7 +10,7 @@ class Player < ActiveRecord::Base
 
   def highest_mpr
     max = games.map { |game| game.rounds.where(player: self).average(:marks) || 0.0 }.max
-    max.round(2)
+    (max || 0.0).round(2)
   end
 
   def win_percent

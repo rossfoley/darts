@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     member do
       get 'play'
       post 'submit_score'
-      post 'new_round'
+      post 'next_round'
       delete 'undo_score'
       delete 'undo_round'
       patch 'finish'
