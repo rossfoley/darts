@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(version: 20151119234529) do
 
   create_table "games", force: :cascade do |t|
-    t.integer  "score"
     t.integer  "winner_id"
     t.integer  "loser_id"
     t.boolean  "finished",     default: false
