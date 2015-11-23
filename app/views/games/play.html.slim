@@ -3,7 +3,7 @@
   h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
 
 .playing
-  == render 'score_board', game: @game, scores: @scores, totals: @totals, show_buttons: true
+  == render 'play_score_board', game: @game, scores: @scores, totals: @totals
 
 = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
 br

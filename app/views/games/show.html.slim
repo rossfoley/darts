@@ -10,7 +10,7 @@ h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams
   p
     strong Loser:
     = link_to @game.loser_name, @game.loser
-  == render 'score_board', game: @game, scores: @scores, totals: @totals, show_buttons: false
+  == render 'score_board', game: @game, scores: @scores, totals: @totals
 
   .chart-container
     div class = 'column-chart' data-chart-series = @stats.to_json
