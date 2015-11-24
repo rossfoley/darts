@@ -30,8 +30,5 @@ class ScoreService
     round.marks += multiplier
     round.scores.create(points: points, multiplier: multiplier)
     round.save
-
-    # Automatically advance to next round
-    NextRoundService.new(@game).call if round.scores.count >= 3
   end
 end
