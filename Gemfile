@@ -18,6 +18,10 @@ gem 'simple_form'
 group :development, :test do
   gem 'byebug'
   gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'capybara'
 end
 
 group :production do
