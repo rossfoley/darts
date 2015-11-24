@@ -1,6 +1,6 @@
 class Player < ActiveRecord::Base
-  has_and_belongs_to_many :teams
-  has_many :rounds
+  has_and_belongs_to_many :teams, -> { order('id ASC') }
+  has_many :rounds, -> { order('id ASC') }
   has_many :scores, through: :rounds
   has_many :games, through: :teams
 
