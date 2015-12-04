@@ -6,6 +6,7 @@ table.table
       th Name
       th Average MPR
       th Adjusted Average MPR
+      th Win Percent
 
   tbody
     - @players.each do |player|
@@ -13,3 +14,4 @@ table.table
         td = link_to player.name, player
         td = player.average_mpr
         td = player.adjusted_average_mpr
+        td = player.win_percent
