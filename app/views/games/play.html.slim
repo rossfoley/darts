@@ -1,7 +1,7 @@
 .middle
   h1 Playing Game
   h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
-= link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post'
+= link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post', id: 'next-button'
 
 .playing
   == render 'play_score_board', game: @game, scores: @scores, totals: @totals
@@ -11,3 +11,10 @@ br
 = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
 br
 = link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'
+
+coffee:
+  ($ window).keypress (e) ->
+    if e.keyCode == 0 or e.keyCode == 32
+      e.preventDefault()
+      ($ "#next-button").click()
+
