@@ -14,7 +14,7 @@ br
 
 coffee:
   ($ window).keypress (e) ->
-    if e.keyCode == 0 or e.keyCode == 32
+    if e.keyCode is 0 or e.keyCode is 32
       e.preventDefault()
       ($ "#next-button").click()
 
