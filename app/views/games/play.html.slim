@@ -13,8 +13,8 @@ br
 = link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'
 
 coffee:
-  ($ window).keypress (e) ->
+  $(window).keypress (e) ->
     if e.keyCode is 0 or e.keyCode is 32
       e.preventDefault()
-      ($ "#next-button").click()
+      $("#next-button").click()
 
