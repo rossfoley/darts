@@ -1,40 +1,58 @@
 p#notice = notice
 
 h1 = @player.name
-.chart-container
-  h3 Marks
-  div class = 'pie-chart' data-chart-series = @stats[:multipliers].to_json
-.chart-container
-  h3 Points
-  div class = 'pie-chart points' data-chart-series = @stats[:points].to_json
-.chart-container
-  h3 Scores in Past Games
-  div class = 'line-chart' data-chart-series = @stats[:history][:y].to_json data-chart-categories = @stats[:history][:x].to_json
-h2 Statistics
-dl
-  dt Games Played:
-  dd = @player.games.count
-  dt Win Percent:
-  dd = "#{@player.win_percent}%"
-  dt Average MPR:
-  dd = @player.average_mpr
-  dt Highest MPR:
-  dd = @player.highest_mpr
 
-h2 Teams
-ul
-  - @player.teams.each do |team|
+#player-tabs
+  ul.nav.nav-tabs
+    li.active
+      a.active href='#statistics' data-toggle='tab' Statistics
     li
-      = link_to team.name, team
-      = ':  '
-      = team.players.map(&:name).join(', ')
+      a href='#distribution' data-toggle='tab' Distribution
+    li
+      a href='#games' data-toggle='tab' Games
+    li
+      a href='#teams' data-toggle='tab' Teams
 
-h2 Recent Games
-ul
-  - @player.games.limit(10).each do |game|
-    li
-      = link_to game.teams.first.name, game.teams.first
-      = ' vs '
-      = link_to game.teams.last.name, game.teams.last
-      = ':  '
-      = game.final_scores.join(' - ')
+  .tab-content
+    #statistics.tab-pane.active
+      h2 Statistics
+      dl
+        dt Games Played:
+        dd = @player.games.count
+        dt Win Percent:
+        dd = "#{@player.win_percent}%"
+        dt Average MPR:
+        dd = @player.average_mpr
+        dt Highest MPR:
+        dd = @player.highest_mpr
+
+    #distribution.tab-pane
+      .chart-container
+        h3 Marks
+        div class = 'pie-chart' data-chart-series = @stats[:multipliers].to_json
+      .chart-container
+        h3 Points
+        div class = 'pie-chart points' data-chart-series = @stats[:points].to_json
+
+    #games.tab-pane
+      .chart-container
+        h3 Scores in Past Games
+        div class = 'line-chart' data-chart-series = @stats[:history][:y].to_json data-chart-categories = @stats[:history][:x].to_json
+
+      h2 Recent Games
+      ul
+        - @player.games.limit(10).each do |game|
+          li
+            = link_to game.teams.first.name, game.teams.first
+            = ' vs '
+            = link_to game.teams.last.name, game.teams.last
+            = ':  '
+            = game.final_scores.join(' - ')
+    #teams.tab-pane
+      h2 Teams
+      ul
+        - @player.teams.each do |team|
+          li
+            = link_to team.name, team
+            = ':  '
+            = team.players.map(&:name).join(', ')
