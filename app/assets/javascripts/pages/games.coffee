@@ -1,6 +1,6 @@
 $ ->
   $('.pie-chart').each ->
-    category = if $(@).hasClass('points') then 'Points' else 'Multipliers'
+    category = if $(@).hasClass('points') then 'Points' else 'Marks'
     $(@).highcharts
       chart:
         plotBackgroundColor: null,
@@ -21,7 +21,7 @@ $ ->
             style:
               color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
       series: [
-        name: 'Multipliers',
+        name: category,
         colorByPoint: true,
         data: $(@).data('chart-series')
       ]

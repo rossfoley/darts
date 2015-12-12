@@ -2,7 +2,7 @@ p#notice = notice
 
 h1 = @player.name
 .chart-container
-  h3 Multipliers
+  h3 Marks
   div class = 'pie-chart' data-chart-series = @stats[:multipliers].to_json
 .chart-container
   h3 Points
@@ -21,4 +21,20 @@ dl
   dt Highest MPR:
   dd = @player.highest_mpr
 
-= link_to 'Edit', edit_player_path(@player)
+h2 Teams
+ul
+  - @player.teams.each do |team|
+    li
+      = link_to team.name, team
+      = ':  '
+      = team.players.map(&:name).join(', ')
+
+h2 Recent Games
+ul
+  - @player.games.limit(10).each do |game|
+    li
+      = link_to game.teams.first.name, game.teams.first
+      = ' vs '
+      = link_to game.teams.last.name, game.teams.last
+      = ':  '
+      = game.final_scores.join(' - ')

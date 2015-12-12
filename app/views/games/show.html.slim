@@ -4,12 +4,6 @@ h1 Game on #{@game.start_date}
 h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
 
 - if @game.finished
-  p
-    strong Winner:
-    = link_to @game.winner_name, @game.winner
-  p
-    strong Loser:
-    = link_to @game.loser_name, @game.loser
   == render 'score_board', game: @game, scores: @scores, totals: @totals
 
   .chart-container
