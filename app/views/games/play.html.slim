@@ -1,16 +1,33 @@
 .middle
   h1 Playing Game
-  h2 Team #{@game.teams.first.name} vs. Team #{@game.teams.last.name}
-= link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post', id: 'next-button'
 
-.playing
-  == render 'play_score_board', game: @game, scores: @scores, totals: @totals
+#playing
+  ul#player-order-list
+    - @game.player_order.each do |player|
+      li class = active_player_class(player, @active_player)
+        = player.name
+    li = link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post', id: 'next-button'
+    li = link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'
 
-= link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
-br
-= link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
-br
-= link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'
+  table.table.table-bordered.table-hover#scoring-table
+    thead
+      th Points
+      th Score
+    tbody
+      - Score.cricket_points.each do |target|
+        tr
+          td
+            .middle = Score.points_name target
+          td.score-buttons
+            == render 'score_buttons', target: target, team: @active_team, player: @active_player
+      tr
+        td
+          .middle = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
+        td
+          .middle = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
+
+
+  == render 'score_board', game: @game, scores: @scores, totals: @totals
 
 coffee:
   $(window).keypress (e) ->

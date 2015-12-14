@@ -27,4 +27,12 @@ module GamesHelper
       ''
     end
   end
+
+  def active_player_class player, active_player
+    if player.id == active_player.id
+      'active-player'
+    else
+      ''
+    end
+  end
 end

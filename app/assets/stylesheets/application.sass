@@ -4,6 +4,8 @@
 table
   font-size: 20px
 
+// Positioning
+
 .left
   float: left
 
@@ -12,6 +14,8 @@ table
 
 .middle
   text-align: center
+
+// Game Play screen
 
 .score-row
   font-weight: bold
@@ -42,23 +46,6 @@ table
   .both-closed td
     background-color: #cccccc
 
-.pie-chart
-  width: 500px
-  height: 500px
-
-.line-chart
-  width: 500px
-  height: 500px
-
-.chart-container
-  float: left
-  padding-right: 10px
-  border-right: 1px solid #eee
-  margin-right: 30px
-
-select
-  height: 100%
-
 #show-score-board
   width: 40%
   float: left
@@ -78,3 +65,46 @@ select
     transform-origin: 0% 0%
     top: 13px
     left: -4px
+
+#player-order-list
+  float: left
+  margin-top: 46px
+
+  li
+    list-style: none
+    padding: 11px
+    font-size: 20px
+    height: 51px
+    border-bottom: 1px solid #eee
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+
+    &.active-player
+      background-color: #eaffea
+
+#scoring-table
+  width: 20%
+  min-width: 300px
+  float: left
+  margin-right: 30px
+
+#playing
+  width: 80%
+  margin: 0 auto
+  overflow: hidden
+
+// Charts
+
+.pie-chart
+  width: 500px
+  height: 500px
+
+.line-chart
+  width: 500px
+  height: 500px
+
+.chart-container
+  float: left
+  padding-right: 10px
+  border-right: 1px solid #eee
+  margin-right: 30px

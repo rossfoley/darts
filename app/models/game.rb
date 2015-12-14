@@ -19,20 +19,20 @@ class Game < ActiveRecord::Base
     end
   end
 
-  # Array of player IDs indicating play order
+  # Array of players indicating play order
   # Assumes that the teams have the same number of players
   def player_order
     team_size = teams.first.players.count
     (0...team_size).flat_map do |index|
-      [teams.first.players[index].id, teams.last.players[index].id]
+      [teams.first.players[index], teams.last.players[index]]
     end
   end
 
   def next_player
     current_order = player_order
-    current_player = current_round.player.id
+    current_player = current_round.player
     index = current_order.index current_player
-    current_order[(index + 1) % current_order.size]
+    current_order[(index + 1) % current_order.size].id
   end
 
   def current_round

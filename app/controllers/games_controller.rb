@@ -14,9 +14,11 @@ class GamesController < ApplicationController
   end
 
   def play
+    redirect_to game_path(@game) if @game.finished
     @scores = @game.team_scores
     @totals = @game.final_scores
     @active_player = @game.current_round.player
+    @active_team = @game.current_round.player.team_for_game @game
   end
 
   def submit_score
