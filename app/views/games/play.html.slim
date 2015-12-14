@@ -1,34 +1,34 @@
 .middle
   h1 Playing Game
 
-#playing
-  ul#player-order-list
-    - @game.player_order.each do |player|
-      li class = active_player_class(player, @active_player)
-        = player.name
-    li = link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post', id: 'next-button'
-    li = link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'
+#playing-container
+  #playing
+    ul#player-order-list
+      - @game.player_order.each do |player|
+        li class = active_player_class(player, @active_player)
+          = player.name
+      li = link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post', id: 'next-button'
+      li = link_to 'Finish Game', finish_game_path(@game), class: 'btn btn-primary', method: 'patch'
 
-  table.table.table-bordered.table-hover#scoring-table
-    thead
-      th Points
-      th Score
-    tbody
-      - Score.cricket_points.each do |target|
+    table.table.table-bordered.table-hover#scoring-table
+      thead
+        th Points
+        th Score
+      tbody
+        - Score.cricket_points.each do |target|
+          tr
+            td = Score.points_name target
+            td.score-buttons
+              == render 'score_buttons', target: target, team: @active_team, player: @active_player
         tr
-          td = Score.points_name target
-          td.score-buttons
-            == render 'score_buttons', target: target, team: @active_team, player: @active_player
-      tr
-        td = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
-        td = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
+          td = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
+          td = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
 
 
-  == render 'score_board', game: @game, scores: @scores, totals: @totals
+    == render 'score_board', game: @game, scores: @scores, totals: @totals
 
 coffee:
   $(window).keypress (e) ->
     if e.keyCode is 0 or e.keyCode is 32
       e.preventDefault()
       $("#next-button").click()
-

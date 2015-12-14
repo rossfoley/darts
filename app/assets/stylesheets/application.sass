@@ -1,6 +1,7 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
+
 table
   font-size: 20px
 
@@ -37,17 +38,24 @@ table
   vertical-align: middle
 
 .score-ticks
-  font-size: 30px
+  font-size: 26px
 
-.playing
-  .closed
-    background-color: #eaffea
+#playing-container
+  text-align: center
 
-  .both-closed td
-    background-color: #cccccc
+  #playing
+    display: inline-block
+    overflow: hidden
+    text-align: left
+
+    .closed
+      background-color: #eaffea
+
+    .both-closed td
+      background-color: #cccccc
 
 #show-score-board
-  width: 40%
+  width: 600px
   float: left
 
 .tally
@@ -85,15 +93,10 @@ table
 #scoring-table
   width: 300px
   float: left
-  margin-right: 30px
+  margin-right: 60px
 
   td, th
     text-align: center
-
-#playing
-  width: 80%
-  margin: 0 auto
-  overflow: hidden
 
 // Charts
 
