@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :teams, label_method: :name, value_method: :id, include_blank: false
+    = f.association :teams, label_method: :name_with_players, value_method: :id, include_blank: false
 
   .form-actions
     = f.button :submit

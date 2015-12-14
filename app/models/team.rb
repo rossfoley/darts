@@ -31,4 +31,8 @@ class Team < ActiveRecord::Base
     end
     sum
   end
+
+  def name_with_players
+    "#{name} - #{players.map(&:name).join(', ')}"
+  end
 end
