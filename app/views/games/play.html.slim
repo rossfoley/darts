@@ -16,15 +16,12 @@
     tbody
       - Score.cricket_points.each do |target|
         tr
-          td
-            .middle = Score.points_name target
+          td = Score.points_name target
           td.score-buttons
             == render 'score_buttons', target: target, team: @active_team, player: @active_player
       tr
-        td
-          .middle = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
-        td
-          .middle = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
+        td = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
+        td = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
 
 
   == render 'score_board', game: @game, scores: @scores, totals: @totals
