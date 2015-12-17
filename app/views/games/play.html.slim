@@ -27,8 +27,43 @@
 
     == render 'score_board', game: @game, scores: @scores, totals: @totals
 
+.hidden
+  audio.aycaramba(preload="auto", autobuffer, controls)
+    source(src="/assets/aycaramba.wav")
+  audio.doh(preload="auto", autobuffer, controls)
+    source(src="/assets/doh.wav")
+  audio.nosiree(preload="auto", autobuffer, controls)
+    source(src="/assets/nosiree.wav")
+  audio.perfect(preload="auto", autobuffer, controls)
+    source(src="/assets/perfect.wav")
+  audio.whoohoo(preload="auto", autobuffer, controls)
+    source(src="/assets/whoohoo.wav")
+
 coffee:
-  $(window).keypress (e) ->
+
+  # Keep track of which keys are pressed
+  keys = {}
+
+  $(window).keyup (e) ->
+    delete keys[e.keyCode]
+
+  $(window).keydown (e) ->
+    keys[e.keyCode] = true
+    keyArr =  Object.keys(keys)
+
+    # Space bar
     if e.keyCode is 0 or e.keyCode is 32
       e.preventDefault()
       $("#next-button").click()
+
+    # Backtick + Alpha character
+    if "192" in keyArr
+      soundMap =
+        65: 'aycaramba',
+        68: 'doh',
+        78: 'nosiree',
+        80: 'perfect'
+        87: 'whoohoo',
+      for char in keyArr
+        if soundMap[char]
+          $("audio.#{soundMap[char]}").trigger 'play'
