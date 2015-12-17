@@ -5,6 +5,7 @@ table.table
     tr
       th Name
       th Average MPR
+      th = "Recent MPR (Last #{Player::RECENT_LIMIT} Games)"
       th Adjusted Average MPR
       th Win Percent
 
@@ -13,5 +14,6 @@ table.table
       tr
         td = link_to player.name, player
         td = player.average_mpr
+        td = player.recent_mpr
         td = player.adjusted_average_mpr
-        td = player.win_percent
+        td = "#{player.win_percent}%"

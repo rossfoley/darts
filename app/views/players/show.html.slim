@@ -23,6 +23,8 @@ h1 = @player.name
         dd = "#{@player.win_percent}%"
         dt Average MPR:
         dd = @player.average_mpr
+        dt = "Recent MPR (Last #{Player::RECENT_LIMIT} Games):"
+        dd = @player.recent_mpr
         dt Highest MPR:
         dd = @player.highest_mpr
 

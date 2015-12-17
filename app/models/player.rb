@@ -4,12 +4,18 @@ class Player < ActiveRecord::Base
   has_many :scores, through: :rounds
   has_many :games, through: :teams
 
+  RECENT_LIMIT = 25
+
   def average_mpr
     (rounds.average(:marks) || 0.0).round(2)
   end
 
   def adjusted_average_mpr
     (rounds.where('marks > 0').average(:marks) || 0.0).round(2)
+  end
+
+  def recent_mpr
+    (rounds.limit(RECENT_LIMIT).average(:marks) || 0.0).round(2)
   end
 
   def highest_mpr
