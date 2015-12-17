@@ -27,17 +27,11 @@
 
     == render 'score_board', game: @game, scores: @scores, totals: @totals
 
+/ Hidden audio elements
 .hidden
-  audio.aycaramba(preload="auto", autobuffer, controls)
-    source(src="/assets/aycaramba.wav")
-  audio.doh(preload="auto", autobuffer, controls)
-    source(src="/assets/doh.wav")
-  audio.nosiree(preload="auto", autobuffer, controls)
-    source(src="/assets/nosiree.wav")
-  audio.perfect(preload="auto", autobuffer, controls)
-    source(src="/assets/perfect.wav")
-  audio.whoohoo(preload="auto", autobuffer, controls)
-    source(src="/assets/whoohoo.wav")
+  - ["aycaramba", "doh", "nosiree", "perfect", "whoohoo"].each do |sound|
+    audio(preload="auto", autobuffer, controls, class=sound)
+      source(src="/assets/#{sound}.wav")
 
 coffee:
 
