@@ -24,7 +24,6 @@
           td = link_to 'Undo Round', undo_round_game_path(@game), class: 'btn btn-primary', method: 'delete'
           td = link_to 'Undo Score', undo_score_game_path(@game), class: 'btn btn-primary', method: 'delete'
 
-
     == render 'score_board', game: @game, scores: @scores, totals: @totals
 
 / Hidden audio elements
@@ -47,7 +46,7 @@ coffee:
 
   $(window).keydown (e) ->
     keys[e.keyCode] = true
-    keyArr =  Object.keys(keys)
+    keyArr = Object.keys(keys)
 
     # Space bar
     if e.keyCode is 0 or e.keyCode is 32
@@ -57,11 +56,11 @@ coffee:
     # Backtick + Alpha character
     if "192" in keyArr
       soundMap =
-        65: 'aycaramba',
-        68: 'doh',
-        78: 'nosiree',
+        65: 'aycaramba'
+        68: 'doh'
+        78: 'nosiree'
         80: 'perfect'
-        87: 'whoohoo',
+        87: 'whoohoo'
       for char in keyArr
         if soundMap[char]
           $("audio.#{soundMap[char]}").trigger 'play'
