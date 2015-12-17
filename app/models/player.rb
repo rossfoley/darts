@@ -1,6 +1,6 @@
 class Player < ActiveRecord::Base
-  has_and_belongs_to_many :teams, -> { order('id ASC') }
-  has_many :rounds, -> { order('id ASC') }
+  has_and_belongs_to_many :teams, -> { order('teams.id ASC') }
+  has_many :rounds, -> { order('rounds.id ASC') }
   has_many :scores, through: :rounds
   has_many :games, through: :teams
 
@@ -15,7 +15,8 @@ class Player < ActiveRecord::Base
   end
 
   def recent_mpr
-    (rounds.limit(RECENT_LIMIT).average(:marks) || 0.0).round(2)
+    recent_games = games.reorder(created_at: :desc).limit(RECENT_LIMIT).pluck('games.id')
+    (rounds.where(game: recent_games).average(:marks) || 0.0).round(2)
   end
 
   def highest_mpr

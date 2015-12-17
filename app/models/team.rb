@@ -1,7 +1,7 @@
 class Team < ActiveRecord::Base
-  has_and_belongs_to_many :players, -> { order('id ASC') }
-  has_and_belongs_to_many :games, -> { order('id ASC') }
-  has_many :rounds, -> { order('id ASC') }
+  has_and_belongs_to_many :players, -> { order('players.id ASC') }
+  has_and_belongs_to_many :games, -> { order('games.id ASC') }
+  has_many :rounds, -> { order('rounds.id ASC') }
   has_many :scores, through: :rounds
 
   def game_scores game
