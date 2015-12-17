@@ -30,7 +30,7 @@
 / Hidden audio elements
 .hidden
   - ["aycaramba", "doh", "nosiree", "perfect", "whoohoo"].each do |sound|
-    audio(preload="auto", autobuffer, controls, class=sound)
+    audio(preload="auto", autobuffer, class=sound)
       source(src="/assets/#{sound}.wav")
 
 coffee:
