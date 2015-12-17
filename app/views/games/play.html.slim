@@ -29,9 +29,13 @@
 
 / Hidden audio elements
 .hidden
-  - ["aycaramba", "doh", "nosiree", "perfect", "whoohoo"].each do |sound|
+  - [["aycaramba", "Bart%20-%20`n`Aye%20Carumba"],
+     ["doh", "Homer%20-%20D'oh!%20(2)"],
+     ["nosiree", "Ned%20-%20No%20siree%20Bob"],
+     ["perfect", "Homer%20-%20Perfect!"],
+     ["whoohoo", "Homer%20-%20Woohoo!%20(1)"] ].each do |(sound, source)|
     audio(preload="auto", autobuffer, class=sound)
-      source(src="/assets/#{sound}.wav")
+      source(src="http://www.richmolnar.com/Sounds/#{source}.wav")
 
 coffee:
 
