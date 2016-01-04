@@ -30,6 +30,11 @@ $ ->
     categories = $(@).data('chart-categories').map (date) ->
       moment(date, 'DD/MM/YY').format('MMM DD')
     series_name = $(@).data('series-name')
+    chart_series = $(@).data('chart-series').map (a) ->
+      if $.type(a) is 'string'
+        parseFloat(a)
+      else
+        a
     $(@).highcharts
       title:
         text: 'Past Performance'
@@ -42,14 +47,14 @@ $ ->
           text: 'Game Date'
       yAxis:
         min: 0
-        max: 1.1 * Math.max.apply(null, $(@).data('chart-series'))
+        max: 1.1 * Math.max.apply(null, chart_series)
         title:
           text: series_name
       plotOptions:
         connectNulls: true
       series: [{
         name: series_name,
-        data: $(@).data('chart-series')
+        data: chart_series
       }]
 
   $('.column-chart').each ->
