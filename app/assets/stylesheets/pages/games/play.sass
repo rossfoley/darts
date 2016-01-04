@@ -1,0 +1,81 @@
+// Game Play screen
+
+.score-row
+  font-weight: bold
+
+.score-column
+  width: 45%
+
+.points-column
+  width: 10%
+
+.buttons-col
+  width: 12%
+
+.team-score
+  width: 200px
+
+.table > tbody > tr > td.score-buttons
+  text-align: center
+  vertical-align: middle
+
+.score-ticks
+  font-size: 30px
+
+#playing-container
+  text-align: center
+
+  #playing
+    display: inline-block
+    overflow: hidden
+    text-align: left
+
+    .closed
+      background-color: #eaffea
+
+    .both-closed td
+      background-color: #cccccc
+
+#show-score-board
+  width: 600px
+  float: left
+
+.tally
+  position: relative
+  display: inline-block
+  margin-left: 10px
+  margin-right: 5px
+
+  &:after
+    content: ''
+    position: absolute
+    border-top: 3px solid black
+    width: 64px
+    transform: rotate(20deg)
+    transform-origin: 0% 0%
+    top: 13px
+    left: -4px
+
+#player-order-list
+  float: left
+  margin-top: 47px
+
+  li
+    list-style: none
+    padding: 11px
+    font-size: 20px
+    height: 51px
+    border-bottom: 1px solid #eee
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+
+    &.active-player
+      background-color: #eaffea
+
+#scoring-table
+  width: 300px
+  float: left
+  margin-right: 60px
+
+  td, th
+    text-align: center
