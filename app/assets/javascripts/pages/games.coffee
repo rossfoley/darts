@@ -29,6 +29,7 @@ $ ->
   $('.line-chart').each ->
     categories = $(@).data('chart-categories').map (date) ->
       moment(date, 'DD/MM/YY').format('MMM DD')
+    series_name = $(@).data('series-name')
     $(@).highcharts
       title:
         text: 'Past Performance'
@@ -43,11 +44,11 @@ $ ->
         min: 0
         max: 1.1 * Math.max.apply(null, $(@).data('chart-series'))
         title:
-          text: 'Final Score'
+          text: series_name
       plotOptions:
         connectNulls: true
       series: [{
-        name: 'Final Team Score',
+        name: series_name,
         data: $(@).data('chart-series')
       }]
 

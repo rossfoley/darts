@@ -10,7 +10,8 @@ class PlayerStatisticsService
     {
         multipliers: multiplier_series(@player.scores.group_by &:multiplier),
         points: points_series(@player.scores.group_by &:points),
-        history: history
+        history: history,
+        mpr_history: mpr_history
     }
   end
 
@@ -25,5 +26,16 @@ class PlayerStatisticsService
     end
     dates = games.map { |game| game.created_at.strftime '%d/%m/%y' }
     { x: dates.reverse, y: scores.reverse }
+  end
+
+  def mpr_history
+    games = @player.games
+                   .joins(:rounds)
+                   .select('games.*, AVG(rounds.marks) as mpr')
+                   .group('games.id')
+                   .limit(HISTORY_LIMIT)
+    mprs = games.map(&:mpr).map {|mpr| mpr.try(:round, 2) || 0.0}
+    dates = games.map { |game| game.created_at.strftime '%d/%m/%y' }
+    { x: dates.reverse, y: mprs.reverse }
   end
 end

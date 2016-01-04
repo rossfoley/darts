@@ -39,7 +39,16 @@ h1 = @player.name
     #games.tab-pane
       .chart-container
         h3 Scores in Past Games
-        div class = 'line-chart' data-chart-series = @stats[:history][:y].to_json data-chart-categories = @stats[:history][:x].to_json
+        div [class = 'line-chart'
+             data-chart-series = @stats[:history][:y].to_json
+             data-chart-categories = @stats[:history][:x].to_json
+             data-series-name = 'Final Score']
+      .chart-container
+        h3 MPRs in Past Games
+        div [class = 'line-chart'
+          data-chart-series = @stats[:mpr_history][:y].to_json
+          data-chart-categories = @stats[:mpr_history][:x].to_json
+          data-series-name = 'MPR']
 
       h2 Recent Games
       ul
