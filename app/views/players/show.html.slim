@@ -54,11 +54,12 @@ h1 = @player.name
       ul
         - @player.games.limit(10).each do |game|
           li
-            = link_to game.teams.first.name, game.teams.first
-            = ' vs '
-            = link_to game.teams.last.name, game.teams.last
-            = ':  '
-            = game.final_scores.join(' - ')
+            = link_to game do
+              = game.teams.first.name
+              = ' vs '
+              = game.teams.last.name
+              = ':  '
+              = game.final_scores.join(' - ')
     #teams.tab-pane
       h2 Teams
       ul

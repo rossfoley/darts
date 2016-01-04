@@ -32,10 +32,11 @@ class PlayerStatisticsService
     games = @player.games
                    .joins(:rounds)
                    .select('games.created_at, AVG(rounds.marks) as mpr')
-                   .group('games.id, teams.id')
+                   .reorder('games.created_at DESC')
+                   .group('games.id')
                    .limit(HISTORY_LIMIT)
     mprs = games.map(&:mpr).map {|mpr| mpr.try(:round, 2) || 0.0}
     dates = games.map { |game| game.created_at.strftime '%d/%m/%y' }
-    { x: dates, y: mprs }
+    { x: dates.reverse, y: mprs.reverse }
   end
 end
