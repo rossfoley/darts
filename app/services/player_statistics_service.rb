@@ -1,5 +1,6 @@
 class PlayerStatisticsService
   include Series
+  HISTORY_LIMIT = 10
 
   def initialize player
     @player = player
@@ -14,16 +15,15 @@ class PlayerStatisticsService
   end
 
   def history
-    scores = Game.joins(teams: :players).where(players: {id: @player.id}).map do |game|
+    games = Game.joins(teams: :players)
+                .where(players: {id: @player.id})
+                .reorder(created_at: :desc)
+                .limit(HISTORY_LIMIT)
+    scores = games.map do |game|
       team = game.teams.where(id: @player.teams).first
       game.final_scores[game.teams.index(team)] || 0
     end
-    dates = Game.joins(teams: :players).where(players: {id: @player.id}).map do |game|
-      game.created_at.strftime '%d/%m/%y'
-    end
-    {
-        x: dates,
-        y: scores
-    }
+    dates = games.map { |game| game.created_at.strftime '%d/%m/%y' }
+    { x: dates.reverse, y: scores.reverse }
   end
 end
