@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :set_game, except: [:index, :new, :create]
 
   def index
-    @games = Game.all.order(created_at: :desc).decorate
+    @games = Game.includes(:teams).all.order(created_at: :desc).decorate
   end
 
   def show

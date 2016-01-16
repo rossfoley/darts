@@ -33,5 +33,6 @@ group :development do
   gem 'habtm_generator'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'bullet'
 end
 

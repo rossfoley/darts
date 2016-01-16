@@ -20,7 +20,7 @@ class PlayerStatisticsService
                 .where(players: {id: @player.id})
                 .reorder(created_at: :desc)
                 .limit(HISTORY_LIMIT)
-    scores = games.map do |game|
+    scores = games.includes(:teams).map do |game|
       team = game.teams.where(id: @player.teams).first
       game.final_scores[game.teams.index(team)] || 0
     end

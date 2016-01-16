@@ -18,10 +18,10 @@ class TeamStatisticsService
   private
 
   def history
-    scores = @team.games.map do |game|
+    scores = @team.games.includes(:teams).map do |game|
       game.final_scores[game.teams.index(@team)] || 0
     end
-    dates = @team.games.map {|game| game.created_at.strftime '%d/%m/%y'}
+    dates = @team.games.includes(:teams).map {|game| game.created_at.strftime '%d/%m/%y'}
     {
         x: dates,
         y: scores
