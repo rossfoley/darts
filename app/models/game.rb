@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
   validates :teams, length: {is: 2}
 
   def team_scores
-    teams.includes(:players).joins(:scores).map { |team| team.total_scores(self) }
+    teams.map { |team| team.total_scores(self) }
   end
 
   def final_scores
