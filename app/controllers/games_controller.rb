@@ -15,7 +15,7 @@ class GamesController < ApplicationController
 
   def play
     redirect_to game_path(@game) if @game.finished
-    @game = Game.includes(teams:{players: {rounds: :scores}}).find(params[:id]).decorate
+    @game = Game.find(params[:id]).decorate
     @scores = @game.team_scores
     @totals = @game.final_scores
     @active_player = @game.current_round.player
