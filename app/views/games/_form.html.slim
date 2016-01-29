@@ -6,7 +6,8 @@
                     collection: Team.includes(:players).all,
                     label_method: :name_with_players,
                     value_method: :id,
-                    include_blank: false
+                    include_blank: false,
+                    input_html: { multiple: 'multiple', data: {toggle: 'selectivity' } }
 
   .form-actions
     = f.button :submit

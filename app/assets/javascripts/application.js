@@ -15,4 +15,5 @@
 //= require highcharts
 //= require moment
 //= require bootstrap
+// = require selectivity
 //= require_tree ./pages

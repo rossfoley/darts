@@ -1,4 +1,5 @@
 $ ->
+  $('[data-toggle="selectivity"]').selectivity()
   $('.pie-chart').each ->
     category = if $(@).hasClass('points') then 'Points' else 'Marks'
     $(@).highcharts
