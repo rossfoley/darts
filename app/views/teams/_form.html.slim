@@ -3,7 +3,11 @@
 
   .form-inputs
     = f.input :name
-    = f.association :players, label_method: :name, value_method: :id, include_blank: false
+    = f.association :players,
+                    label_method: :name,
+                    value_method: :id,
+                    include_blank: false,
+                    input_html: { multiple: 'multiple', data: {toggle: 'selectivity' } }
 
   .form-actions
     = f.button :submit
