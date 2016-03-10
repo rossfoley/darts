@@ -1,0 +1,14 @@
+table.table.table-hover
+  thead
+    tr
+      th Name
+      th Players
+
+  tbody
+    - teams.each do |team|
+      tr
+        td = link_to team.name, team
+        td
+          - team.players.each do |player|
+            = link_to player.name, player
+            br
