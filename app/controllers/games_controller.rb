@@ -6,10 +6,10 @@ class GamesController < ApplicationController
   end
 
   def show
+    redirect_to games_path unless @game.finished
     @scores = @game.team_scores
     @totals = @game.final_scores
     @stats = GameStatisticsService.new(@game).call
-    @empty_rounds = (@game.rounds.where(marks: 0).count * 100.0 / @game.rounds.count).round
     @player_mprs = GamePlayerMprService.new(@game).call
   end
 

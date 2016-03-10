@@ -1,23 +1,25 @@
-p#notice = notice
+.middle
+  h1 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
+  h2 Game on #{@game.start_date}
 
-h1 Game on #{@game.start_date}
-h2 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
+.row
+  .col-md-6
+    == render 'score_board', game: @game, scores: @scores, totals: @totals
+  .col-md-6
+    table.table.table-hover.table-striped
+      thead
+        tr
+          th Player
+          th MPR
+      tbody
+        - @player_mprs.each do |name, mpr|
+          tr
+            td = name
+            td = mpr
 
-- if @game.finished
-  == render 'score_board', game: @game, scores: @scores, totals: @totals
-
-  .chart-container
-    div class = 'column-chart' data-chart-series = @stats.to_json
-  h2 Statistics
-  dl
-    dt Empty Rounds (3 misses):
-    dd = " #{@empty_rounds}%"
-  h2 Player MPRs:
-  dl
-    - @player_mprs.each do |name, mpr|
-      dt = name
-      dd = mpr
-- else
-  = link_to 'Play', play_game_path(@game)
-  br
-  = link_to 'Edit', edit_game_path(@game)
+hr
+.row
+  .col-md-12
+    h2 Graphs
+    .chart-container
+      div class = 'column-chart' data-chart-series = @stats.to_json
