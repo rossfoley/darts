@@ -15,5 +15,6 @@
 //= require highcharts
 //= require moment
 //= require bootstrap
-// = require selectivity
+//= require selectivity
+//= require datatables.min
 //= require_tree ./pages
