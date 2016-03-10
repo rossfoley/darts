@@ -16,6 +16,7 @@ gem 'slim-rails'
 gem 'simple_form'
 gem 'selectivity-rails'
 gem 'font-awesome-rails'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug'

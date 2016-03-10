@@ -2,6 +2,9 @@ h1 All Games
 
 = link_to 'New Game', new_game_path, class: 'btn btn-primary'
 
+.middle
+  = paginate @games
+
 table.table
   thead
     tr
@@ -12,7 +15,7 @@ table.table
       th Final Score
 
   tbody
-    - @games.each do |game|
+    - @games.decorate.each do |game|
       tr
         - if game.finished
           td = link_to 'View Results', game
@@ -32,3 +35,6 @@ table.table
               br
           td
           td
+
+.middle
+  = paginate @games
