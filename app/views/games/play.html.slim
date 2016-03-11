@@ -4,7 +4,7 @@
 #playing-container
   #playing
     ul#player-order-list
-      - @game.player_order.each do |player|
+      - @game.ordered_players.each do |player|
         li class = active_player_class(player, @active_player)
           = player.name
       li = link_to 'Next Round', next_round_game_path(@game), class: 'btn btn-primary', method: 'post', id: 'next-button'

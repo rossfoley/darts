@@ -59,7 +59,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        @game.rounds.create(player: @game.teams.first.players.first, team: @game.teams.first)
+        InitializeGameService.new(@game).call
         format.html { redirect_to play_game_path(@game), notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else
