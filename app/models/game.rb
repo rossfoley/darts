@@ -2,8 +2,10 @@ class Game < ActiveRecord::Base
   has_and_belongs_to_many :teams, -> { order('teams.id ASC') }
   has_many :rounds, -> { order('rounds.id ASC') }, dependent: :destroy
   has_many :scores, through: :rounds
+  has_many :players, through: :teams
 
   serialize :final_scores, Array
+  serialize :player_order, Array
 
   validates :teams, length: {is: 2}
 
@@ -19,20 +21,15 @@ class Game < ActiveRecord::Base
     end
   end
 
-  # Array of players indicating play order
-  # Assumes that the teams have the same number of players
-  def player_order
-    team_size = teams.first.players.count
-    (0...team_size).flat_map do |index|
-      [teams.first.players[index], teams.last.players[index]]
+  def ordered_players
+    player_order.map do |ordered_id|
+      players.find { |p| p.id == ordered_id }
     end
   end
 
   def next_player
-    current_order = player_order
-    current_player = current_round.player
-    index = current_order.index current_player
-    current_order[(index + 1) % current_order.size].id
+    index = player_order.index current_round.player.id
+    player_order[(index + 1) % player_order.size]
   end
 
   def current_round
