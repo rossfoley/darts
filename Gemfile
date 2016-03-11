@@ -2,40 +2,42 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '4.2.4'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+
+gem 'bootstrap-sass', '~> 3.3.5'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
+gem 'devise'
 gem 'draper'
 gem 'faker'
-gem 'nested_form'
-gem 'bootstrap-sass', '~> 3.3.5'
-gem 'slim-rails'
-gem 'simple_form'
-gem 'selectivity-rails'
 gem 'font-awesome-rails'
+gem 'jbuilder', '~> 2.0'
+gem 'jquery-rails'
 gem 'kaminari'
+gem 'nested_form'
+gem 'omniauth-google-oauth2'
+gem 'pg'
+gem 'sass-rails', '~> 5.0'
+gem 'selectivity-rails'
+gem 'simple_form'
+gem 'slim-rails'
+gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug'
-  gem 'sqlite3'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
   gem 'capybara'
+  gem 'dotenv-rails'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
 end
 
 group :production do
   gem 'rails_12factor'
-  gem 'pg'
 end
 
 group :development do
-  gem 'habtm_generator'
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
   gem 'bullet'
+  gem 'spring'
+  gem 'web-console', '~> 2.0'
 end
 

@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119234529) do
+ActiveRecord::Schema.define(version: 20160310223625) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
     t.integer  "winner_id"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 20151119234529) do
     t.integer "team_id"
   end
 
-  add_index "games_teams", ["game_id", "team_id"], name: "games_teams_index", unique: true
+  add_index "games_teams", ["game_id", "team_id"], name: "games_teams_index", unique: true, using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 20151119234529) do
     t.integer "team_id"
   end
 
-  add_index "players_teams", ["player_id", "team_id"], name: "players_teams_index", unique: true
+  add_index "players_teams", ["player_id", "team_id"], name: "players_teams_index", unique: true, using: :btree
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "game_id"
@@ -51,9 +54,9 @@ ActiveRecord::Schema.define(version: 20151119234529) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "rounds", ["game_id"], name: "index_rounds_on_game_id"
-  add_index "rounds", ["player_id"], name: "index_rounds_on_player_id"
-  add_index "rounds", ["team_id"], name: "index_rounds_on_team_id"
+  add_index "rounds", ["game_id"], name: "index_rounds_on_game_id", using: :btree
+  add_index "rounds", ["player_id"], name: "index_rounds_on_player_id", using: :btree
+  add_index "rounds", ["team_id"], name: "index_rounds_on_team_id", using: :btree
 
   create_table "scores", force: :cascade do |t|
     t.integer  "points"
@@ -63,7 +66,7 @@ ActiveRecord::Schema.define(version: 20151119234529) do
     t.integer  "round_id"
   end
 
-  add_index "scores", ["round_id"], name: "index_scores_on_round_id"
+  add_index "scores", ["round_id"], name: "index_scores_on_round_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -71,4 +74,27 @@ ActiveRecord::Schema.define(version: 20151119234529) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "uid",                    default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  add_foreign_key "rounds", "games"
+  add_foreign_key "rounds", "players"
+  add_foreign_key "rounds", "teams"
+  add_foreign_key "scores", "rounds"
 end
