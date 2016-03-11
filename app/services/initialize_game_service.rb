@@ -15,7 +15,7 @@ class InitializeGameService
   private
 
   def random_player_order game
-    players = game.teams.map { |team| team.players.pluck(:id).shuffle }
-    players.first.zip(players.last).shuffle.flatten.compact
+    first_team, second_team = game.teams.map { |team| team.players.pluck(:id).shuffle }
+    first_team.zip(second_team).shuffle.flatten.compact
   end
 end
