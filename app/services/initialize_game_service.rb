@@ -8,7 +8,7 @@ class InitializeGameService
     @game.save
 
     first_player = Player.find(@game.player_order.first)
-    first_team = first_player.teams.joins(:games).where(games: {id: @game.id}).first
+    first_team = first_player.team_for_game @game
     @game.rounds.create(player: first_player, team: first_team)
   end
 

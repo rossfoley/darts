@@ -28,7 +28,9 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'guard-rspec', require: false
   gem 'rspec-rails'
+  gem 'terminal-notifier-guard'
 end
 
 group :production do

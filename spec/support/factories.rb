@@ -1,19 +1,15 @@
 FactoryGirl.define do
   factory :game do
     teams {[create(:team), create(:team)]}
-    winner_id
-    loser_id
+    winner_id { teams.first.id }
+    loser_id { teams.last.id }
     finished false
-    final_scores
-  end
-
-  factory :team do
-    players {[create(:player)]}
-    name 'TestTeam'
+    final_scores [0, 0]
+    player_order []
   end
 
   factory :player do
-    name 'PlayerName'
+    sequence(:name) {|n| "Player #{n}"}
   end
 
   factory :round do
@@ -27,5 +23,15 @@ FactoryGirl.define do
     multiplier 1
     points 15
     round
+  end
+
+  factory :team do
+    players {[create(:player)]}
+    sequence(:name) {|n| "Team #{n}"}
+  end
+
+  factory :user do
+    sequence(:uid) {|n| "UID#{n}"}
+    sequence(:email) {|n| "test#{n}@example.com"}
   end
 end

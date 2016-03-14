@@ -10,26 +10,18 @@ class Team < ActiveRecord::Base
 
   def total_scores game
     groups = game_scores(game).group_by(&:points)
-    score_totals = Score.cricket_points.map do |points|
-      total = 0
-      closed = false
-      if groups[points]
-        total = groups[points].inject(0) { |sum, s| sum + s.multiplier }
-        closed = total >= 3
-      end
+    Score.cricket_points.map do |points|
+      groups[points] ||= []
+      total = groups[points].inject(0) { |sum, s| sum + s.multiplier }
+      closed = total >= 3
       [points, {total: total, closed: closed}]
-    end
-    Hash[score_totals]
+    end.to_h
   end
 
   def final_score game
-    sum = 0
-    total_scores(game).each do |points, info|
-      if info[:closed]
-        sum += points * (info[:total] - 3)
-      end
+    total_scores(game).reduce(0) do |sum, (points, info)|
+      sum + points * [info[:total] - 3, 0].max
     end
-    sum
   end
 
   def name_with_players
