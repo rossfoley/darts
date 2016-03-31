@@ -16,35 +16,12 @@ class GamesController < ApplicationController
   def play
     redirect_to game_path(@game) if @game.finished
     @game = Game.includes(teams:{players: {rounds: :scores}}).find(params[:id]).decorate
-    @scores = @game.team_scores
-    @totals = @game.final_scores
-    @active_player = @game.current_round.player
-    @active_team = @game.current_round.player.team_for_game @game
-  end
-
-  def submit_score
-    ScoreService.new(@game, params).call
-    redirect_to play_game_path(@game)
-  end
-
-  def undo_score
-    UndoScoreService.new(@game).call
-    redirect_to play_game_path(@game)
-  end
-
-  def undo_round
-    @game.current_round.destroy if @game.rounds.count > 1
-    redirect_to play_game_path(@game)
+    @initial_state = InitialStateService.new(@game).call
   end
 
   def finish
-    FinishGameService.new(@game).call
-    redirect_to game_path(@game)
-  end
-
-  def next_round
-    NextRoundService.new(@game).call
-    redirect_to play_game_path(@game)
+    FinishGameService.new(@game, round_params).call
+    render json: {redirectUrl: game_url(@game)}
   end
 
   def new
@@ -90,17 +67,16 @@ class GamesController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+
   def set_game
     @game = Game.find(params[:id]).decorate
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def game_params
     params.require(:game).permit(:winner_id, :loser_id, :finished, team_ids: [])
   end
 
-  def score_params
-    params.require(:score).permit(:player_id, :team_id, :points, :multiplier)
+  def round_params
+    params.require(:game).permit(rounds: [:player_id, :team_id, scores: [:points, :multiplier]])
   end
 end

@@ -5,11 +5,7 @@ Rails.application.routes.draw do
   resources :games do
     member do
       get 'play'
-      post 'submit_score'
-      post 'next_round'
-      delete 'undo_score'
-      delete 'undo_round'
-      patch 'finish'
+      put 'finish'
     end
   end
 
