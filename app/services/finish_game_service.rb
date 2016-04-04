@@ -6,6 +6,7 @@ class FinishGameService
 
   def call
     save_rounds
+    compute_mprs
     compute_results
   end
 
@@ -23,6 +24,12 @@ class FinishGameService
         marks: scores.map(&:multiplier).reduce(:+) || 0,
         scores: scores
       )
+    end
+  end
+
+  def compute_mprs
+    @game.players.each do |player|
+      @game.mprs.create player: player, mpr: (@game.rounds.where(player: player).average(:marks) || 0.0)
     end
   end
 

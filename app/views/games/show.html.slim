@@ -12,10 +12,10 @@
           th Player
           th MPR
       tbody
-        - @player_mprs.each do |name, mpr|
+        - @game.mprs.each do |mpr|
           tr
-            td = name
-            td = mpr
+            td = mpr.player.name
+            td = mpr.mpr.round(2)
 
 hr
 .row

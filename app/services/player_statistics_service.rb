@@ -29,14 +29,12 @@ class PlayerStatisticsService
   end
 
   def mpr_history
-    games = @player.games
-                   .joins(:rounds)
-                   .select('games.created_at, AVG(rounds.marks) as mpr')
-                   .reorder('games.created_at DESC')
-                   .group('games.id')
-                   .limit(HISTORY_LIMIT)
-    mprs = games.map(&:mpr).map {|mpr| mpr.try(:round, 2) || 0.0}
-    dates = games.map { |game| game.created_at.strftime '%d/%m/%y' }
-    { x: dates.reverse, y: mprs.reverse }
+    game_mprs = @player.mprs
+                       .includes(:game)
+                       .order('games.created_at DESC')
+                       .limit(HISTORY_LIMIT)
+    player_mprs = game_mprs.map(&:mpr).map {|mpr| mpr.try(:round, 2) || 0.0}
+    dates = game_mprs.map { |mpr| mpr.game.created_at.strftime '%d/%m/%y' }
+    { x: dates.reverse, y: player_mprs.reverse }
   end
 end

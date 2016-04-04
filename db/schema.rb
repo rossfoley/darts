@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311091258) do
+ActiveRecord::Schema.define(version: 20160404020957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20160311091258) do
   end
 
   add_index "games_teams", ["game_id", "team_id"], name: "games_teams_index", unique: true, using: :btree
+
+  create_table "mprs", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "game_id"
+    t.float   "mpr",       default: 0.0
+  end
+
+  add_index "mprs", ["game_id"], name: "index_mprs_on_game_id", using: :btree
+  add_index "mprs", ["player_id"], name: "index_mprs_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
@@ -94,6 +103,8 @@ ActiveRecord::Schema.define(version: 20160311091258) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "mprs", "games"
+  add_foreign_key "mprs", "players"
   add_foreign_key "rounds", "games"
   add_foreign_key "rounds", "players"
   add_foreign_key "rounds", "teams"

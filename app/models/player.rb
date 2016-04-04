@@ -3,11 +3,12 @@ class Player < ActiveRecord::Base
   has_many :rounds, -> { order('rounds.id ASC') }
   has_many :scores, through: :rounds
   has_many :games, through: :teams
+  has_many :mprs
 
   RECENT_LIMIT = 25
 
   def average_mpr
-    (rounds.average(:marks) || 0.0).round(2)
+    (mprs.average(:mpr) || 0.0).round(2)
   end
 
   def adjusted_average_mpr
@@ -15,13 +16,11 @@ class Player < ActiveRecord::Base
   end
 
   def recent_mpr
-    recent_games = games.reorder(created_at: :desc).limit(RECENT_LIMIT).pluck('games.id')
-    (rounds.where(game: recent_games).average(:marks) || 0.0).round(2)
+    (mprs.joins(:game).order('games.created_at DESC').limit(RECENT_LIMIT).average(:mpr) || 0.0).round(2)
   end
 
   def highest_mpr
-    max = games.map { |game| game.rounds.where(player: self).average(:marks) || 0.0 }.max
-    (max || 0.0).round(2)
+    (mprs.maximum(:mpr) || 0.0).round(2)
   end
 
   def win_percent

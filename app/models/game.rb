@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
   has_many :rounds, -> { order('rounds.id ASC') }, dependent: :destroy
   has_many :scores, through: :rounds
   has_many :players, through: :teams
+  has_many :mprs
 
   serialize :final_scores, Array
   serialize :player_order, Array

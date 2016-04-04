@@ -1,11 +1,10 @@
 class LeaderboardsController < ApplicationController
   def players
     @players = Player.all
-                   .joins(:rounds)
-                   .select('players.id, players.name, avg(rounds.marks) as mpr')
-                   .group('players.id')
-                   .order('mpr DESC')
-                   .sort_by(&:recent_mpr)
-                   .reverse
+                     .joins(:mprs)
+                     .select('players.id, players.name, avg(mprs.mpr) as average_computed_mpr')
+                     .group('players.id')
+                     .sort_by(&:recent_mpr)
+                     .reverse
   end
 end
