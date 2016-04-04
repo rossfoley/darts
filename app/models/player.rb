@@ -16,7 +16,8 @@ class Player < ActiveRecord::Base
   end
 
   def recent_mpr
-    (mprs.joins(:game).order('games.created_at DESC').limit(RECENT_LIMIT).average(:mpr) || 0.0).round(2)
+    recent_game_ids = games.reorder('games.created_at DESC').limit(RECENT_LIMIT).pluck(:id)
+    (mprs.where(game_id: recent_game_ids).average(:mpr) || 0.0).round(2)
   end
 
   def highest_mpr
