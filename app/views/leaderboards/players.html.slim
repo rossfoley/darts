@@ -6,7 +6,7 @@ table.table.sortable
       th Name
       th = "Recent MPR (Last #{Player::RECENT_LIMIT} Games)"
       th Average MPR
-      th Adjusted Average MPR
+      th Highest MPR
       th Win Percent
 
   tbody
@@ -15,5 +15,5 @@ table.table.sortable
         td = link_to player.name, player
         td = player.recent_mpr
         td = player.average_computed_mpr.round(2)
-        td = player.adjusted_average_mpr
+        td = player.highest_mpr
         td = "#{player.win_percent}%"
