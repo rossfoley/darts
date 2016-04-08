@@ -69,7 +69,7 @@ h1 = @player.name
                 th Teams
                 th Score
             tbody
-              - @player.games.limit(10).each do |game|
+              - @player.games.reorder('games.created_at DESC').limit(10).each do |game|
                 tr
                   td = link_to "#{game.teams.first.name} vs #{game.teams.last.name}", game
                   td = link_to game.final_scores.join(' - '), game
