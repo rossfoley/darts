@@ -1,6 +1,6 @@
 class PlayerStatisticsService
   include Series
-  HISTORY_LIMIT = 25
+  HISTORY_LIMIT = 30
 
   def initialize player
     @player = player
