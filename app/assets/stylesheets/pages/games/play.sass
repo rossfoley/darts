@@ -1,4 +1,6 @@
-// Game Play screen
+$standard-row-height: 60px
+$small-row-height: 45px
+$standard-right-margin: 60px
 
 .score-row
   font-weight: bold
@@ -41,11 +43,11 @@
     float: left
 
     tbody tr
-      height: 60px
+      height: $standard-row-height
       box-sizing: border-box
 
       &.score-row
-        height: 45px
+        height: $small-row-height
 
       td
         vertical-align: middle
@@ -68,24 +70,35 @@
 
 #player-order-list
   float: left
-  margin-top: 47px
+  margin-right: $standard-right-margin
+  width: 200px
 
-  li
-    list-style: none
-    padding: 11px
+  th
+    text-align: center
+
+  td
+    text-align: center
+    vertical-align: middle
     font-size: 20px
-    height: 51px
-    border-bottom: 1px solid #eee
-    border-top-left-radius: 5px
-    border-bottom-left-radius: 5px
+    height: $standard-row-height
 
     &.active-player
       background-color: #eaffea
 
+  tr.button-row td
+    height: $small-row-height
+
 #scoring-table
   width: 300px
   float: left
-  margin-right: 60px
+  margin-right: $standard-right-margin
 
   td, th
     text-align: center
+
+  td
+    height: $standard-row-height
+    vertical-align: middle
+
+  tr:last-child td
+    height: $small-row-height
