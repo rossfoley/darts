@@ -7,6 +7,11 @@ Rails.application.routes.draw do
       get 'play'
       put 'finish'
     end
+
+    collection do
+      get 'new_suggest'
+      post 'create_suggest'
+    end
   end
 
   namespace :leaderboards do

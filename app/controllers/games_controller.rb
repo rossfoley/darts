@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, except: [:index, :new, :create]
+  before_action :set_game, except: [:index, :new, :create, :new_suggest, :create_suggest]
 
   def index
     @games = Game.includes(:teams).order(created_at: :desc).page(params[:page]).per(10)
@@ -27,6 +27,10 @@ class GamesController < ApplicationController
     @game = Game.new.decorate
   end
 
+  def new_suggest
+    @game = Game.new.decorate
+  end
+
   def edit
   end
 
@@ -40,6 +44,20 @@ class GamesController < ApplicationController
         format.json { render :show, status: :created, location: @game }
       else
         format.html { render :new }
+        format.json { render json: @game.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_suggest
+    @game = InitializeSuggestedGameService.new(game_suggest_params).call
+
+    respond_to do |format|
+      if @game.errors.blank?
+        format.html { redirect_to play_game_path(@game) }
+        format.json { render :show, status: :created, location: @game }
+      else
+        format.html { render :new_suggest }
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
@@ -73,6 +91,10 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:winner_id, :loser_id, :finished, team_ids: [])
+  end
+
+  def game_suggest_params
+    params.require(:game).permit(player_ids: [])
   end
 
   def round_params

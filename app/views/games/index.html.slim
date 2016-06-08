@@ -1,6 +1,7 @@
 h1 All Games
 
 = link_to 'New Game', new_game_path, class: 'btn btn-primary'
+/= link_to 'New Game with Suggested Teams', new_suggest_games_path, class: 'btn btn-primary'
 
 .middle
   = paginate @games
