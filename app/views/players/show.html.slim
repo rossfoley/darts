@@ -56,10 +56,11 @@ h1 = @player.name
                data-series-name = 'Final Score']
         .chart-container.col-md-4
           h3 MPRs in Past Games
-          div [class = 'line-chart'
+          div [class = 'mpr-chart'
             data-chart-series = @stats[:mpr_history][:y].to_json
             data-chart-categories = @stats[:mpr_history][:x].to_json
-            data-series-name = 'MPR']
+            data-series-name = 'MPR'
+            data-player-mpr = @player.recent_mpr]
 
         .col-md-4
           h2 Recent Games
