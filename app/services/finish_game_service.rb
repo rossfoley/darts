@@ -14,6 +14,7 @@ class FinishGameService
 
   def save_rounds
     @game.rounds.destroy_all
+    @game.mprs.destroy_all
     @rounds.values.each do |round|
       scores = (round['scores'] || {}).values.map do |score|
         Score.create points: score['points'], multiplier: score['multiplier']
