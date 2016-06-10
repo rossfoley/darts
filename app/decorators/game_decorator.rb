@@ -22,6 +22,7 @@ class GameDecorator < Draper::Decorator
   end
 
   def final_score
-    "#{object.final_scores[0]} - #{object.final_scores[1]}"
+    scores = object.final_scores.sort.reverse
+    "#{scores.first} - #{scores.last}"
   end
 end

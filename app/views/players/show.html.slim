@@ -5,16 +5,48 @@ h1 = @player.name
 #player-tabs
   ul.nav.nav-tabs
     li.active
-      a.active href='#statistics' data-toggle='tab' Statistics
+      a.active href='#games' data-toggle='tab' Games
+    li
+      a href='#statistics' data-toggle='tab' Statistics
     li
       a href='#distribution' data-toggle='tab' Distribution
-    li
-      a href='#games' data-toggle='tab' Games
     li
       a href='#teams' data-toggle='tab' Teams
 
   .tab-content
-    #statistics.tab-pane.active
+    #games.tab-pane.active
+      .row
+        .col-md-12
+          h3 MPRs in Past Games
+          div [class = 'mpr-chart'
+            data-chart-series = @stats[:mpr_history][:y].to_json
+            data-chart-categories = @stats[:mpr_history][:x].to_json
+            data-series-name = 'MPR'
+            data-player-mpr = @player.recent_mpr ]
+      hr
+      .row
+        .col-md-12
+          h3 Scores in Past Games
+          div [class = 'line-chart'
+            data-chart-series = @stats[:history][:y].to_json
+            data-chart-categories = @stats[:history][:x].to_json
+            data-series-name = 'Final Score']
+
+      hr
+      .row
+        .col-md-12
+          h2 Recent Games
+          table.table.table-hover
+            thead
+              tr
+                th Teams
+                th Score
+            tbody
+              - @player.games.reorder('games.created_at DESC').limit(10).each do |game|
+                tr
+                  td = link_to "#{game.teams.first.name} vs #{game.teams.last.name}", game
+                  td = link_to game.final_scores.join(' - '), game
+    #statistics.tab-pane
       table.table.table-striped.table-hover.table-fixed
         thead
           tr
@@ -46,34 +78,6 @@ h1 = @player.name
           h3 Points
           div class = 'pie-chart points' data-chart-series = @stats[:points].to_json
 
-    #games.tab-pane
-      .row
-        .chart-container.col-md-4
-          h3 Scores in Past Games
-          div [class = 'line-chart'
-               data-chart-series = @stats[:history][:y].to_json
-               data-chart-categories = @stats[:history][:x].to_json
-               data-series-name = 'Final Score']
-        .chart-container.col-md-4
-          h3 MPRs in Past Games
-          div [class = 'mpr-chart'
-            data-chart-series = @stats[:mpr_history][:y].to_json
-            data-chart-categories = @stats[:mpr_history][:x].to_json
-            data-series-name = 'MPR'
-            data-player-mpr = @player.recent_mpr]
-
-        .col-md-4
-          h2 Recent Games
-          table.table.table-hover
-            thead
-              tr
-                th Teams
-                th Score
-            tbody
-              - @player.games.reorder('games.created_at DESC').limit(10).each do |game|
-                tr
-                  td = link_to "#{game.teams.first.name} vs #{game.teams.last.name}", game
-                  td = link_to game.final_scores.join(' - '), game
     #teams.tab-pane
       h2 Teams
       == render 'teams/teams_table', teams: @player.teams

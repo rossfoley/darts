@@ -7,36 +7,19 @@ h1 All Games
 .middle
   = paginate @games
 
-table.table
-  thead
-    tr
-      th
-      th Start Date
-      th Teams
-      th Winner
-      th Final Score
-
-  tbody
-    - @games.decorate.each do |game|
-      tr
-        - if game.finished
-          td = link_to 'View Results', game
-          td = game.start_date
-          td
-            - game.teams.each do |team|
-              = link_to team.name, team
+- @grouped_games.each do |date, games|
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title = date.strftime("%B %-d, %Y")
+    .panel-body
+      ul.list-group
+        - games.each do |game|
+          li.list-group-item
+            - if game.finished?
+              | #{link_to game.winner_name, game.winner} won #{game.final_score} in #{link_to game.teams.first.name, game.teams.first} vs #{link_to game.teams.last.name, game.teams.last}
               br
-          td = link_to game.winner_name, game.winner
-          td = game.final_score
-        - else
-          td = link_to 'Play Game', play_game_path(game)
-          td = game.start_date
-          td
-            - game.teams.each do |team|
-              = link_to team.name, team
-              br
-          td
-          td
-
+              small = link_to 'View Results', game
+            - else
+              = link_to "Play Game: #{game.teams.first.name} vs #{game.teams.last.name}", play_game_path(game)
 .middle
   = paginate @games

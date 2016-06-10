@@ -2,7 +2,11 @@ class GamesController < ApplicationController
   before_action :set_game, except: [:index, :new, :create, :new_suggest, :create_suggest]
 
   def index
-    @games = Game.includes(:teams).order(created_at: :desc).page(params[:page]).per(10)
+    @games = Game.includes(:teams)
+                 .order(created_at: :desc)
+                 .page(params[:page])
+                 .per(10)
+    @grouped_games = @games.decorate.group_by { |game| game.created_at.to_date }
   end
 
   def show
