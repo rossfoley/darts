@@ -29,6 +29,13 @@ class Player < ActiveRecord::Base
     (games.where(winner_id: teams).count * 100.0 / games.count).round(2)
   end
 
+  def recent_win_percent
+    return 0.0 if games.count == 0
+    recent_games = games.limit(RECENT_LIMIT).reorder('games.created_at DESC').to_a
+    recent_wins = recent_games.select { |game| game.winner_id.in? teams.map(&:id) }
+    (recent_wins.size * 100.0 / recent_games.size).round(2)
+  end
+
   def team_for_game game
     teams.joins(:games).where(games: {id: game.id}).first
   end

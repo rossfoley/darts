@@ -5,15 +5,13 @@ table.table.sortable
     tr
       th Name
       th = "Recent MPR (Last #{Player::RECENT_LIMIT} Games)"
-      th Average MPR
       th Highest MPR
-      th Win Percent
+      th = "Recent Win Percent (Last #{Player::RECENT_LIMIT} Games)"
 
   tbody
     - @players.each do |player|
       tr
         td = link_to player.name, player
         td = player.recent_mpr
-        td = player.average_computed_mpr.round(2)
         td = player.highest_mpr
-        td = "#{player.win_percent}%"
+        td = "#{player.recent_win_percent}%"
