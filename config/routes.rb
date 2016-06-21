@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :leaderboards do
     get 'players'
+    get 'all-time'
   end
 
   root 'games#index'

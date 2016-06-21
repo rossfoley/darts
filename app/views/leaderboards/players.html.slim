@@ -1,12 +1,12 @@
-h1 Player MPR Leaderboard
+h1 = "Recent Leaderboard (Last #{Player::RECENT_LIMIT} Games)"
 
 table.table.sortable
   thead
     tr
       th Name
-      th = "Recent MPR (Last #{Player::RECENT_LIMIT} Games)"
+      th MPR
       th Highest MPR
-      th = "Recent Win Percent (Last #{Player::RECENT_LIMIT} Games)"
+      th Win Percent
 
   tbody
     - @players.each do |player|
