@@ -13,7 +13,6 @@ class LeaderboardsController < ApplicationController
                  .joins(:mprs)
                  .select('players.id, players.name, avg(mprs.mpr) as average_computed_mpr')
                  .group('players.id')
-                 .sort_by(&:recent_mpr)
-                 .reverse
+                 .order('average_computed_mpr DESC')
   end
 end
