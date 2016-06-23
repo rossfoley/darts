@@ -24,6 +24,16 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def win_percent
+    return 0.0 if games.count == 0
+    (games.where(winner_id: id).count * 100.0 / games.count).round(2)
+  end
+
+  def recent_mpr
+    player_mprs = players.map(&:recent_mpr)
+    (player_mprs.reduce(:+) / player_mprs.size).round(2)
+  end
+
   def name_with_players
     "#{name} - #{players.map(&:name).join(', ')}"
   end

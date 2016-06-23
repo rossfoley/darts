@@ -1,0 +1,19 @@
+h1 Teams Leaderboard
+
+table.table.sortable
+  thead
+    tr
+      th Name
+      th Players
+      th Recent MPR
+      th Win Percent
+      th Games Played
+
+  tbody
+    - @teams.each do |team|
+      tr
+        td = link_to team.name, team
+        td = team.players.map(&:name).join ', '
+        td = team.recent_mpr
+        td = "#{team.win_percent}%"
+        td = team.games.count

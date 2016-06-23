@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
 
     namespace :leaderboards do
+      get 'teams'
       get 'players'
       get 'all-time'
     end

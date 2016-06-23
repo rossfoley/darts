@@ -7,8 +7,9 @@ ul.nav.navbar-nav.navbar-left
       | Leaderboards
       span.caret
     ul.dropdown-menu
-      = nav_link 'Recent Leaderboard', leaderboards_players_path
-      = nav_link 'All Time Leaderboard', leaderboards_all_time_path
+      = nav_link 'Players - Recent', leaderboards_players_path
+      = nav_link 'Players - All Time', leaderboards_all_time_path
+      = nav_link 'Teams', leaderboards_teams_path
 ul.nav.navbar-nav.navbar-right
   - if signed_in?
     li = link_to current_user.email, '#'
