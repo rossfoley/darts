@@ -14,12 +14,5 @@
       tbody
         - @game.mprs.each do |mpr|
           tr
-            td = mpr.player.name
+            td = link_to mpr.player.name, mpr.player
             td = mpr.mpr.round(2)
-
-hr
-.row
-  .col-md-12
-    h2 Graphs
-    .chart-container
-      div class = 'column-chart' data-chart-series = @stats.to_json

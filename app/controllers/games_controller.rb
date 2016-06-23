@@ -13,12 +13,11 @@ class GamesController < ApplicationController
     redirect_to games_path unless @game.finished
     @scores = @game.team_scores
     @totals = @game.final_scores
-    @stats = GameStatisticsService.new(@game).call
   end
 
   def play
     redirect_to game_path(@game) if @game.finished
-    @game = Game.includes(teams:{players: {rounds: :scores}}).find(params[:id]).decorate
+    @game = Game.includes(teams: { players: { rounds: :scores } }).find(params[:id]).decorate
     @initial_state = InitialStateService.new(@game).call
   end
 

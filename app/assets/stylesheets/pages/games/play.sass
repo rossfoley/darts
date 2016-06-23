@@ -39,18 +39,22 @@ $standard-right-margin: 60px
       background-color: #cccccc
 
   #show-score-board
-    width: 600px
     float: left
+    margin: 0
 
-    tbody tr
-      height: $standard-row-height
-      box-sizing: border-box
+#show-score-board
+  width: 600px
+  margin: 0 auto
 
-      &.score-row
-        height: $small-row-height
+  tbody tr
+    height: $standard-row-height
+    box-sizing: border-box
 
-      td
-        vertical-align: middle
+    &.score-row
+      height: $small-row-height
+
+    td
+      vertical-align: middle
 
 .tally
   position: relative
