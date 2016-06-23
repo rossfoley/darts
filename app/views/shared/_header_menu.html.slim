@@ -9,3 +9,9 @@ ul.nav.navbar-nav.navbar-left
     ul.dropdown-menu
       = nav_link 'Recent Leaderboard', leaderboards_players_path
       = nav_link 'All Time Leaderboard', leaderboards_all_time_path
+ul.nav.navbar-nav.navbar-right
+  - if signed_in?
+    li = link_to current_user.email, '#'
+    = nav_link 'Logout', logout_path
+  - else
+    = nav_link 'Login', user_omniauth_authorize_path(provider: 'google_oauth2')
