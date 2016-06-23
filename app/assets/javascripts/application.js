@@ -17,4 +17,5 @@
 //= require bootstrap
 //= require selectivity
 //= require datatables.min
+//= require keymaster
 //= require_tree ./pages
