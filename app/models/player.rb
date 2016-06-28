@@ -5,6 +5,13 @@ class Player < ActiveRecord::Base
   has_many :games, through: :teams
   has_many :mprs
 
+  after_initialize :set_default_values
+
+  enum state: {
+    active: 10,
+    inactive: 20
+  }
+
   RECENT_LIMIT = 25
 
   def average_mpr
@@ -38,5 +45,11 @@ class Player < ActiveRecord::Base
 
   def team_for_game game
     teams.joins(:games).where(games: {id: game.id}).first
+  end
+
+  private
+
+  def set_default_values
+    self.state ||= :active
   end
 end

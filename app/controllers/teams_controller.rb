@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   def index
-    @teams = Team.includes(:players).all.decorate
+    @teams = Team.includes(:players).active.decorate
   end
 
   def show

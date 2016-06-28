@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.association :teams,
-                    collection: Team.includes(:players).all,
+                    collection: Team.includes(:players).active,
                     label_method: :name_with_players,
                     value_method: :id,
                     include_blank: false,

@@ -4,6 +4,24 @@ class Team < ActiveRecord::Base
   has_many :rounds, -> { order('rounds.id ASC') }
   has_many :scores, through: :rounds
 
+  scope :active, -> {
+    where('NOT EXISTS (
+             SELECT 1
+             FROM players
+             INNER JOIN players_teams ON players_teams.player_id = players.id
+             INNER JOIN teams AS t ON players_teams.team_id = teams.id
+             WHERE players.state = ?)', Player.states[:inactive])
+  }
+
+  scope :inactive, -> {
+    where('EXISTS (
+             SELECT 1
+             FROM players
+             INNER JOIN players_teams ON players_teams.player_id = players.id
+             INNER JOIN teams AS t ON players_teams.team_id = teams.id
+             WHERE players.state = ?)', Player.states[:inactive])
+  }
+
   def game_scores game
     scores.joins(round: :game).where('games.id = ?', game.id)
   end
