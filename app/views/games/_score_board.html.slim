@@ -4,11 +4,11 @@ table#show-score-board.table.table-bordered.table-hover
   colgroup.team-score
   thead
     th
-      .right Team #{game.teams.first.name}
+      .right.truncate = game.teams.first.name
     th
       .middle vs.
     th
-      .left Team #{game.teams.last.name}
+      .left.truncate = game.teams.last.name
 
   tbody
     - Score.cricket_points.each do |target|
