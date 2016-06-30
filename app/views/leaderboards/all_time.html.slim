@@ -12,6 +12,6 @@ table.table.table-hover.table-striped.sortable
     - @players.each do |player|
       tr
         td = link_to player.name, player
-        td = player.average_computed_mpr.round(2)
+        td = player.average_mpr.round(2)
         td = player.games.count
         td = "#{player.win_percent}%"
