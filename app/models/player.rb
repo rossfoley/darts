@@ -14,15 +14,24 @@ class Player < ActiveRecord::Base
 
   RECENT_LIMIT = 25
 
-  def average_mpr
-    (mprs.average(:mpr) || 0.0).round(2)
-  end
+  scope :with_mprs, -> {
+    select('players.*, AVG(mprs.mpr) as average_mpr, AVG(recent_mprs.mpr) as recent_mpr')
+    .joins("INNER JOIN mprs ON mprs.player_id = players.id
+            INNER JOIN LATERAL (
+              SELECT mprs.*
+              FROM mprs
+              WHERE mprs.player_id = players.id
+              ORDER BY mprs.id DESC
+              LIMIT #{RECENT_LIMIT}
+            ) recent_mprs ON true")
+    .group('players.id')
+  }
 
   def adjusted_average_mpr
     (rounds.where('marks > 0').average(:marks) || 0.0).round(2)
   end
 
-  def recent_mpr
+  def recent_computed_mpr
     recent_game_ids = games.reorder('games.created_at DESC').limit(RECENT_LIMIT).pluck(:id)
     (mprs.where(game_id: recent_game_ids).average(:mpr) || 0.0).round(2)
   end

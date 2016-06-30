@@ -52,7 +52,7 @@ class PlayersController < ApplicationController
 
   private
     def set_player
-      @player = Player.find(params[:id])
+      @player = Player.with_mprs.find(params[:id])
     end
 
     def player_params

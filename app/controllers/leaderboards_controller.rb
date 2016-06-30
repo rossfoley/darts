@@ -1,19 +1,10 @@
 class LeaderboardsController < ApplicationController
   def players
-    @players = Player.active
-                     .joins(:mprs)
-                     .select('players.*, avg(mprs.mpr) as average_computed_mpr')
-                     .group('players.id')
-                     .sort_by(&:recent_mpr)
-                     .reverse
+    @players = Player.active.with_mprs.order('recent_mpr DESC')
   end
 
   def all_time
-    @players = Player.active
-                     .joins(:mprs)
-                     .select('players.*, avg(mprs.mpr) as average_computed_mpr')
-                     .group('players.id')
-                     .order('average_computed_mpr DESC')
+    @players = Player.active.with_mprs.order('average_mpr DESC')
   end
 
   def teams

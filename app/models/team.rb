@@ -48,7 +48,7 @@ class Team < ActiveRecord::Base
   end
 
   def recent_mpr
-    player_mprs = players.map(&:recent_mpr)
+    player_mprs = players.map(&:recent_computed_mpr)
     (player_mprs.reduce(:+) / player_mprs.size).round(2)
   end
 

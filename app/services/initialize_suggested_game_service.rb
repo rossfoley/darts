@@ -6,7 +6,7 @@ class InitializeSuggestedGameService
   end
 
   def call
-    players = params[:player_ids].map { |id| Player.includes(:mprs, teams: :players).find_by id: id }.compact
+    players = params[:player_ids].map { |id| Player.with_mprs.includes(:mprs, teams: :players).find_by id: id }.compact
 
     # Teams must have the same number of players
     if players.size % 2 != 0
