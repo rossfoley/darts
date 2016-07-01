@@ -15,9 +15,9 @@ class Player < ActiveRecord::Base
   RECENT_LIMIT = 25
 
   scope :with_mprs, -> {
-    select('players.*, AVG(mprs.mpr) as average_mpr, AVG(recent_mprs.mpr) as recent_mpr')
-    .joins("INNER JOIN mprs ON mprs.player_id = players.id
-            INNER JOIN LATERAL (
+    select('players.*, COALESCE(AVG(mprs.mpr), 0) as average_mpr, COALESCE(AVG(recent_mprs.mpr), 0) as recent_mpr')
+    .joins("LEFT JOIN mprs ON mprs.player_id = players.id
+            LEFT JOIN LATERAL (
               SELECT mprs.*
               FROM mprs
               WHERE mprs.player_id = players.id

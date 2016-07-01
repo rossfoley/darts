@@ -23,18 +23,7 @@ class Game < ActiveRecord::Base
   end
 
   def ordered_players
-    player_order.map do |ordered_id|
-      players.find { |p| p.id == ordered_id }
-    end
-  end
-
-  def next_player
-    index = player_order.index current_round.player.id
-    player_order[(index + 1) % player_order.size]
-  end
-
-  def current_round
-    rounds.last
+    player_order.map { |ordered_id| Player.with_mprs.find ordered_id }
   end
 
   def winner
