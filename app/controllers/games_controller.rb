@@ -26,6 +26,11 @@ class GamesController < ApplicationController
     render json: {redirectUrl: game_url(@game)}
   end
 
+  def rematch
+    new_game = GameRematchService.new(@game).call
+    redirect_to play_game_path(new_game)
+  end
+
   def new
     @game = Game.new.decorate
   end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       member do
         get 'play'
         put 'finish'
+        get 'rematch'
       end
 
       collection do
