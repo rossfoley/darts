@@ -24,7 +24,7 @@ class InitializeSuggestedGameService
         teams.select { |t| t.players.count == team_players.size }
       end.reduce(:&).first
       if team.blank?
-        name = team_players.map(&:name).join ''
+        name = team_players.map(&:name).map {|name| name.split ' '}.map(&:last).join ' '
         team = Team.create(name: name, players: team_players)
       end
       team
