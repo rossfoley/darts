@@ -1,11 +1,11 @@
-class GameRematchService
+class GameRematch
   def initialize game
     @game = game
   end
 
   def call
     new_game = Game.new(teams: @game.teams)
-    InitializeGameService.new(new_game).call
+    InitializeGame.new(new_game).call
     new_game
   end
 end

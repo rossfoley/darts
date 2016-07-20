@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
   end
 
   def show
-    @stats = PlayerStatisticsService.new(@player).call
+    @stats = PlayerStatistics.new(@player).call
   end
 
   def new

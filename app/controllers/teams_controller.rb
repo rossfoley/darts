@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @stats = TeamStatisticsService.new(@team).call
+    @stats = TeamStatistics.new(@team).call
   end
 
   def new

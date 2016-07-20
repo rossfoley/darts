@@ -1,4 +1,4 @@
-class InitializeGameService
+class InitializeGame
   def initialize game
     @game = game
   end

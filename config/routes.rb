@@ -21,6 +21,11 @@ Rails.application.routes.draw do
       get 'players'
       get 'all-time'
     end
+
+    namespace :training do
+      get 'new'
+      get 'play'
+    end
   end
 
   get :logout, to: 'users#logout', as: :logout

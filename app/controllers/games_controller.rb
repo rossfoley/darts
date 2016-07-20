@@ -18,16 +18,16 @@ class GamesController < ApplicationController
   def play
     redirect_to game_path(@game) if @game.finished
     @game = Game.includes(teams: { players: { rounds: :scores } }).find(params[:id]).decorate
-    @initial_state = InitialStateService.new(@game).call
+    @initial_state = InitialState.new(@game).call
   end
 
   def finish
-    FinishGameService.new(@game, round_params).call
+    FinishGame.new(@game, round_params).call
     render json: {redirectUrl: game_url(@game)}
   end
 
   def rematch
-    new_game = GameRematchService.new(@game).call
+    new_game = GameRematch.new(@game).call
     redirect_to play_game_path(new_game)
   end
 
@@ -47,7 +47,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        InitializeGameService.new(@game).call
+        InitializeGame.new(@game).call
         format.html { redirect_to play_game_path(@game) }
         format.json { render :show, status: :created, location: @game }
       else
@@ -58,7 +58,7 @@ class GamesController < ApplicationController
   end
 
   def create_suggest
-    @game = InitializeSuggestedGameService.new(game_suggest_params).call
+    @game = InitializeSuggestedGame.new(game_suggest_params).call
 
     respond_to do |format|
       if @game.errors.blank?

@@ -1,4 +1,4 @@
-class InitializeSuggestedGameService
+class InitializeSuggestedGame
   attr_accessor :params
 
   def initialize params
@@ -30,6 +30,6 @@ class InitializeSuggestedGameService
       team
     end
 
-    Game.create(teams: teams).tap { |g| InitializeGameService.new(g).call }
+    Game.create(teams: teams).tap { |g| InitializeGame.new(g).call }
   end
 end

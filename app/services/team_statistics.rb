@@ -1,4 +1,4 @@
-class TeamStatisticsService
+class TeamStatistics
   include Series
 
   def initialize team

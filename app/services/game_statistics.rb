@@ -1,4 +1,4 @@
-class GameStatisticsService
+class GameStatistics
   include Series
 
   def initialize game

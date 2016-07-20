@@ -1,4 +1,4 @@
-class InitialStateService
+class InitialState
   def initialize game
     @game = game
   end

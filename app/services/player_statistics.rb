@@ -1,4 +1,4 @@
-class PlayerStatisticsService
+class PlayerStatistics
   include Series
   HISTORY_LIMIT = 30
 

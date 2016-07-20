@@ -1,4 +1,4 @@
-class FinishGameService
+class FinishGame
   def initialize game, round_params
     @game = game
     @rounds = round_params['rounds']

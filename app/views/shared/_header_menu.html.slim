@@ -10,6 +10,7 @@ ul.nav.navbar-nav.navbar-left
       = nav_link 'Players - Recent', leaderboards_players_path
       = nav_link 'Players - All Time', leaderboards_all_time_path
       = nav_link 'Teams', leaderboards_teams_path
+  = nav_link 'Training', training_new_path
 ul.nav.navbar-nav.navbar-right
   - if signed_in?
     li = link_to current_user.email, '#'
