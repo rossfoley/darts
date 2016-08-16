@@ -1,13 +1,13 @@
-.middle
-  h1 #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
-  h2 Game on #{@game.start_date}
+.row.center
+  h1.header #{link_to @game.teams.first.name, @game.teams.first} vs #{link_to @game.teams.last.name, @game.teams.last}
+  h5.header.col.s12.light Game on #{@game.start_date}
   = link_to 'Rematch', rematch_game_path(@game), class: 'btn btn-primary'
 
 .row
-  .col-md-6
+  .col.s6
     == render 'score_board', game: @game, scores: @scores, totals: @totals
-  .col-md-6
-    table.table.table-hover.table-striped.sortable
+  .col.s6
+    table.bordered.highlight.sortable
       thead
         tr
           th Player

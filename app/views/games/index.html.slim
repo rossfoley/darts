@@ -1,25 +1,21 @@
-h1 All Games
+.section#game-header
+  h1.header.center Dart Games
 
-.btn-group
-  = link_to 'New Game', new_game_path, class: 'btn btn-primary'
-  = link_to 'New Game with Suggested Teams', new_suggest_games_path, class: 'btn btn-primary'
+  .row.center
+    a.btn-large.waves-effect.waves-light.dropdown-button href='#!' data-activates='new-game-dropdown' data-constrainwidth='false' New Game
 
-.middle
-  = paginate @games
+  ul#new-game-dropdown.dropdown-content
+    li = link_to 'Suggested Teams', new_suggest_games_path
+    li = link_to 'Manual Teams', new_game_path
 
-- @grouped_games.each do |date, games|
-  .panel.panel-default
-    .panel-heading
+  .middle
+    == paginate @games
+
+  - @grouped_games.each do |date, games|
+    .row
       h3.panel-title = date.strftime("%B %-d, %Y")
-    .panel-body
-      ul.list-group
-        - games.each do |game|
-          li.list-group-item
-            - if game.finished?
-              | #{link_to game.winner_name, game.winner} won #{game.final_score} in #{link_to game.teams.first.name, game.teams.first} vs #{link_to game.teams.last.name, game.teams.last}
-              br
-              small = link_to 'View Results', game
-            - else
-              = link_to "Play Game: #{game.teams.first.name} vs #{game.teams.last.name}", play_game_path(game)
-.middle
-  = paginate @games
+      - games.each do |game|
+        == render 'game_card', game: game
+  .middle
+    == paginate @games
+

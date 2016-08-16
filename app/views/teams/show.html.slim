@@ -1,20 +1,18 @@
-p#notice = notice
-
-h1 = @team.name
+h1.header.center = @team.name
 .row
-  .chart-container.col-md-6
-    h3 Overall
-    div class = 'pie-chart' data-chart-series = @stats[:overall].to_json
-  .chart-container.col-md-6
-    h3 Scores in Past Games
-    div [class = 'line-chart'
-      data-chart-series = @stats[:history][:y].to_json
-      data-chart-categories = @stats[:history][:x].to_json
-      data-series-name = 'Final Score']
-.row
+  .card.hoverable
+    .card-content
+      span.card-title Scores in Recent Games
+      div [class = 'line-chart'
+        data-chart-series = @stats[:history][:y].to_json
+        data-chart-categories = @stats[:history][:x].to_json
+        data-series-name = 'Final Score']
+  .card.hoverable
+    .card-content
+      span.card-title Overall Mark Distribution
+      div class = 'pie-chart' data-chart-series = @stats[:overall].to_json
   - @team.players.each_with_index do |player, index|
-    .chart-container.col-md-4
-      h3 #{player.name}
-      div class = 'pie-chart' data-chart-series = @stats[:players][index].to_json
-
-= link_to 'Edit', edit_team_path(@team)
+    .card.hoverable
+      .card-content
+        span.card-title = player.name
+        div class = 'pie-chart' data-chart-series = @stats[:players][index].to_json

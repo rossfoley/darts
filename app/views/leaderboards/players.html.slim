@@ -1,6 +1,7 @@
-h1 = "Recent Leaderboard (Last #{Player::RECENT_LIMIT} Games)"
-
-table.table.table-hover.table-striped.sortable
+h1.header.center Player Leaderboard
+.row.center
+ h5.header.col.s12.light Last #{Player::RECENT_LIMIT} Games
+table.bordered.highlight.sortable
   thead
     tr
       th Name

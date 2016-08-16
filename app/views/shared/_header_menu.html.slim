@@ -1,19 +1,23 @@
-ul.nav.navbar-nav.navbar-left
-  = nav_link 'Games', games_path
-  = nav_link 'Teams', teams_path
-  = nav_link 'Players', players_path
-  li.dropdown
-    a.dropdown-toggle href="#" data-toggle="dropdown"
-      | Leaderboards
-      span.caret
-    ul.dropdown-menu
-      = nav_link 'Players - Recent', leaderboards_players_path
-      = nav_link 'Players - All Time', leaderboards_all_time_path
-      = nav_link 'Teams', leaderboards_teams_path
-  = nav_link 'Training', training_new_path
-ul.nav.navbar-nav.navbar-right
-  - if signed_in?
-    li = link_to current_user.email, '#'
-    = nav_link 'Logout', logout_path
-  - else
-    = nav_link 'Login', user_omniauth_authorize_path(provider: 'google_oauth2')
+nav
+  .nav-wrapper.container
+    = link_to 'Darts', '/', class: 'brand-logo', id: 'dart-logo'
+    ul.left
+      = nav_link 'Games', games_path
+      = nav_link 'Teams', teams_path
+      = nav_link 'Players', players_path
+      li
+        a.dropdown-button href='#!' data-activates='leaderboard-dropdown' data-beloworigin="true" data-hover="true"
+          | Leaderboards
+          i.material-icons.right arrow_drop_down
+      = nav_link 'Training', training_new_path
+    ul.right
+      - if signed_in?
+        li = link_to current_user.email, '#'
+        = nav_link 'Logout', logout_path
+      - else
+        = nav_link 'Login', user_google_oauth2_omniauth_authorize_path
+
+ul#leaderboard-dropdown.dropdown-content
+  = nav_link 'Players - Recent', leaderboards_players_path
+  = nav_link 'Players - All Time', leaderboards_all_time_path
+  = nav_link 'Teams', leaderboards_teams_path

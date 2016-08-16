@@ -1,8 +1,8 @@
-h1 All Players
+h1.header.center All Players
+.row.center
+  = link_to 'New Player', new_player_path, class: 'btn btn-primary'
 
-= link_to 'New Player', new_player_path, class: 'btn btn-primary'
-
-table.table.sortable
+table.bordered.sortable
   thead
     tr
       th Name

@@ -1,0 +1,9 @@
+.row
+  .card.hoverable
+    .card-content
+      span.card-title Marks
+      div class = 'pie-chart' data-chart-series = stats[:multipliers].to_json
+  .card.hoverable
+    .card-content
+      span.card-title Points
+      div class = 'pie-chart points' data-chart-series = stats[:points].to_json

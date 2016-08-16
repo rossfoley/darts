@@ -3,4 +3,5 @@ $ ->
     paging: false
     info: false
     order: []
+    autoWidth: false
   )

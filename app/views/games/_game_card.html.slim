@@ -1,0 +1,11 @@
+.card.hoverable
+  .card-content
+    span.card-title #{game.teams.first.name} vs #{game.teams.last.name}
+    p
+      - if game.finished?
+        | #{game.winner_name} won #{game.final_score}
+  .card-action
+    - if game.finished?
+      = link_to 'View Results', game
+    - else
+      = link_to 'Play Game', play_game_path(game)

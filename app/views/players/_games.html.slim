@@ -1,0 +1,31 @@
+.row
+  .card.hoverable
+    .card-content
+      span.card-title MPRs in Recent Games
+      div [class = 'mpr-chart'
+        data-chart-series = stats[:mpr_history][:y].to_json
+        data-chart-categories = stats[:mpr_history][:x].to_json
+        data-series-name = 'MPR'
+        data-player-mpr = player.recent_mpr ]
+
+  .card.hoverable
+    .card-content
+      span.card-title Scores in Recent Games
+      div [class = 'line-chart'
+        data-chart-series = stats[:history][:y].to_json
+        data-chart-categories = stats[:history][:x].to_json
+        data-series-name = 'Final Score']
+
+  .card.hoverable
+    .card-content
+      span.card-title Recent Games
+      table.bordered.table-hover
+        thead
+          tr
+            th Teams
+            th Score
+        tbody
+          - player.games.reorder('games.created_at DESC').limit(10).each do |game|
+            tr
+              td = link_to "#{game.teams.first.name} vs #{game.teams.last.name}", game
+              td = link_to game.final_scores.join(' - '), game

@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require highcharts
 //= require moment
-//= require bootstrap
+//= require materialize-sprockets
 //= require selectivity
 //= require datatables.min
 //= require keymaster

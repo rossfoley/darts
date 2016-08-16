@@ -1,8 +1,3 @@
-- if notice
-  .alert.alert-dismissable.alert-success.auto-dismiss
-    button.close data-dismiss="alert" x
-    = notice
-- if alert
-  .alert.alert-dismissable.alert-danger
-    button.close data-dismiss="alert" x
-    = alert
+- flash.each do |_, msg|
+  javascript:
+    Materialize.toast("#{msg}", 3000);

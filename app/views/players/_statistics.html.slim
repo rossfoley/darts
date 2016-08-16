@@ -1,0 +1,21 @@
+table.bordered.highlight
+  thead
+    tr
+      th.col-md-3 Statistic
+      th.col-md-9 Value
+  tbody
+    tr
+      td Games Played
+      td = player.games.count
+    tr
+      td Win Percent
+      td = "#{player.win_percent}%"
+    tr
+      td Average MPR
+      td = player.average_mpr.round(2)
+    tr
+      td Recent MPR (Last #{Player::RECENT_LIMIT} Games)
+      td = player.recent_mpr.round(2)
+    tr
+      td Highest MPR
+      td = player.highest_mpr

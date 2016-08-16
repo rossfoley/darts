@@ -1,83 +1,15 @@
-p#notice = notice
+h1.header.center = @player.name
 
-h1 = @player.name
+#player-tabs.row
+  .col.s12
+    ul.tabs
+      li.tab.col.s3 = link_to 'Games', '#games'
+      li.tab.col.s3 = link_to 'Statistics', '#statistics'
+      li.tab.col.s3 = link_to 'Distribution', '#distribution'
+      li.tab.col.s3 = link_to 'Teams', '#teams'
 
-#player-tabs
-  ul.nav.nav-tabs
-    li.active
-      a.active href='#games' data-toggle='tab' Games
-    li
-      a href='#statistics' data-toggle='tab' Statistics
-    li
-      a href='#distribution' data-toggle='tab' Distribution
-    li
-      a href='#teams' data-toggle='tab' Teams
+  #games.col.s12 == render 'games', stats: @stats, player: @player
+  #statistics.col.s12 == render 'statistics', player: @player
+  #distribution.col.s12 == render 'distribution', stats: @stats
+  #teams.col.s12 == render 'teams', player: @player
 
-  .tab-content
-    #games.tab-pane.active
-      .row
-        .col-md-12
-          h3 MPRs in Past Games
-          div [class = 'mpr-chart'
-            data-chart-series = @stats[:mpr_history][:y].to_json
-            data-chart-categories = @stats[:mpr_history][:x].to_json
-            data-series-name = 'MPR'
-            data-player-mpr = @player.recent_mpr ]
-      hr
-      .row
-        .col-md-12
-          h3 Scores in Past Games
-          div [class = 'line-chart'
-            data-chart-series = @stats[:history][:y].to_json
-            data-chart-categories = @stats[:history][:x].to_json
-            data-series-name = 'Final Score']
-
-      hr
-      .row
-        .col-md-12
-          h2 Recent Games
-          table.table.table-hover
-            thead
-              tr
-                th Teams
-                th Score
-            tbody
-              - @player.games.reorder('games.created_at DESC').limit(10).each do |game|
-                tr
-                  td = link_to "#{game.teams.first.name} vs #{game.teams.last.name}", game
-                  td = link_to game.final_scores.join(' - '), game
-    #statistics.tab-pane
-      table.table.table-striped.table-hover.table-fixed
-        thead
-          tr
-            th.col-md-3 Statistic
-            th.col-md-9 Value
-        tbody
-          tr
-            td Games Played
-            td = @player.games.count
-          tr
-            td Win Percent
-            td = "#{@player.win_percent}%"
-          tr
-            td Average MPR
-            td = @player.average_mpr.round(2)
-          tr
-            td Recent MPR (Last #{Player::RECENT_LIMIT} Games)
-            td = @player.recent_mpr.round(2)
-          tr
-            td Highest MPR
-            td = @player.highest_mpr
-
-    #distribution.tab-pane
-      .row
-        .chart-container.col-md-6
-          h3 Marks
-          div class = 'pie-chart' data-chart-series = @stats[:multipliers].to_json
-        .chart-container.col-md-6
-          h3 Points
-          div class = 'pie-chart points' data-chart-series = @stats[:points].to_json
-
-    #teams.tab-pane
-      h2 Teams
-      == render 'teams/teams_table', teams: @player.teams

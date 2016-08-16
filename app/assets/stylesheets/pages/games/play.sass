@@ -1,21 +1,9 @@
 $standard-row-height: 60px
 $small-row-height: 45px
-$standard-right-margin: 60px
+$standard-right-margin: 40px
 
 .score-row
   font-weight: bold
-
-.score-column
-  width: 45%
-
-.points-column
-  width: 10%
-
-.buttons-col
-  width: 12%
-
-.team-score
-  width: 200px
 
 .table > tbody > tr > td.score-buttons
   text-align: center
@@ -28,7 +16,11 @@ $standard-right-margin: 60px
   text-align: center
 
   #playing
-    display: inline-block
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-between
+    width: 100%
     overflow: hidden
     text-align: left
 
@@ -38,23 +30,13 @@ $standard-right-margin: 60px
     .both-closed td
       background-color: #cccccc
 
-  #show-score-board
-    float: left
-    margin: 0
-
-#show-score-board
-  width: 600px
-  margin: 0 auto
-
-  tbody tr
-    height: $standard-row-height
-    box-sizing: border-box
-
-    &.score-row
-      height: $small-row-height
-
     td
-      vertical-align: middle
+      height: 76px
+
+  #show-score-board
+    margin: 0
+    width: auto
+    flex-grow: 1
 
 .tally
   position: relative
@@ -73,9 +55,7 @@ $standard-right-margin: 60px
     left: -4px
 
 #player-order-list
-  float: left
-  margin-right: $standard-right-margin
-  width: 200px
+  min-width: 210px
 
   th
     text-align: center
@@ -84,18 +64,17 @@ $standard-right-margin: 60px
     text-align: center
     vertical-align: middle
     font-size: 20px
-    height: $standard-row-height
+    //height: $standard-row-height
 
     &.active-player
-      background-color: #eaffea
+      background-color: rgba($secondary-color, 0.5)
 
-  tr.button-row td
-    height: $small-row-height
+  //tr.button-row td
+  //  height: $small-row-height
 
 #scoring-table
-  width: 300px
-  float: left
-  margin-right: $standard-right-margin
+  margin: 0 $standard-right-margin
+  min-width: 350px
 
   td, th
     text-align: center
@@ -121,3 +100,11 @@ $standard-right-margin: 60px
 
     dd
       margin-left: 120px
+
+.btn
+  &.btn-small
+    padding: 0 1rem
+    text-transform: none
+  &.btn-success
+    background-color: $success-color
+

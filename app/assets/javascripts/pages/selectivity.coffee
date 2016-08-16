@@ -1,0 +1,2 @@
+$ ->
+  $('[data-toggle="selectivity"]').selectivity()
